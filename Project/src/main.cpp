@@ -12,8 +12,7 @@ sf::RectangleShape boardChess[fields * fields];
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(453, 453), "Chess Mae");
-    // sf::RectangleShape rectangle(sf::Vector2f(tileSize, tileSize));
+    sf::RenderWindow window(sf::VideoMode(width, height), "Chess Mae");
     board(fields, tileSize, boardChess);
 
     while (window.isOpen())
@@ -26,7 +25,10 @@ int main()
         }
 
         window.clear();
-        window.draw(boardChess[1]);
+        for (int i = 0; i < fields * fields; i++)
+        {
+            window.draw(boardChess[i]);
+        }
         window.display();
     }
 
