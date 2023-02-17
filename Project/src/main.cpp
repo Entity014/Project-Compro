@@ -4,7 +4,7 @@
 #include <SFML/Audio.hpp>
 #include "board.cpp"
 
-const int width = 768, height = 768;
+const int width = 800, height = 800;
 const int fields = 8;
 const int tileSize = width / fields;
 
