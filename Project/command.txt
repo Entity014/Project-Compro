@@ -1,2 +1,2 @@
-g++ -c /home/entity014/compro/Project/main.cpp
-g++ /home/entity014/compro/Project/main.o -o /home/entity014/compro/Project/sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+g++ -c /home/entity014/compro/Project/src/main.cpp -o /home/entity014/compro/Project/src/main.o
+g++ /home/entity014/compro/Project/src/main.o -o /home/entity014/compro/Project/sfml-app -lsfml-graphics -lsfml-window -lsfml-system
