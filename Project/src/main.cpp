@@ -2,7 +2,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "board.cpp"
+#include "board.h"
 
 const int width = 800, height = 600;
 const int fields = 8;
@@ -15,7 +15,7 @@ sf::RectangleShape boardChess[fields * fields];
 int main()
 {
     sf::Texture t1;
-    t1.loadFromFile("/home/entity014/compro/Project/asset/texture/test.png");
+    t1.loadFromFile("asset/texture/test.png");
     t1.setSmooth(true);
 
     sf::Sprite s(t1);
