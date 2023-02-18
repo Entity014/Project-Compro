@@ -2,6 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include <string>
+#include <vector>
 #include "include/board.cpp"
 #include "include/spawnEntity.cpp"
 
@@ -13,6 +14,7 @@ const int moveRight = width - height;
 
 /* Board */
 sf::RectangleShape boardChess[fields * fields];
+sf::Vector2f boardPositions[fields * fields];
 
 /* Entity */
 /* In Future, it must change */
@@ -57,11 +59,11 @@ int main()
     /* Entity on game */
     defaultBoardCheck(defaultBoard, sizeof(defaultBoard)/sizeof(defaultBoard[0]), count);
     sf::Sprite spriteE[count];
-    entityConfig(defaultBoard, textureE, spriteE, fields * fields);
+    entityConfig(defaultBoard, textureE, spriteE, boardPositions, fields * fields);
 
     /* Reander window */
     sf::RenderWindow window(sf::VideoMode(width, height), "Chess Mae");
-    board(fields, tileSize, moveRight, boardChess);
+    board(fields, tileSize, moveRight, boardPositions, boardChess);
     sf::RectangleShape Status(sf::Vector2f(moveRight, height));
 
     /* Window Here */
@@ -82,7 +84,6 @@ int main()
         {
             window.draw(boardChess[i]);
         }
-        // window.draw(spriteE[0]);
         window.display();
     }
 

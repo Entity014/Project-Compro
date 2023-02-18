@@ -1,12 +1,13 @@
 #include <SFML/Graphics.hpp>
 
-void board(const int field, const int size, const int move, sf::RectangleShape arrB[])
+void board(const int field, const int size, const int move,sf::Vector2f bP[], sf::RectangleShape arrB[])
 {
     int j = 0;
     for (int i = 0; i < field*field; i++)
     {
         sf::RectangleShape rectangle(sf::Vector2f(size, size));
         rectangle.setPosition(size * (i % field) + move, size * j);
+        bP[i] = rectangle.getPosition();
         if (i % 2 == 1 && j % 2 == 0)
         {
             // std::cout << "1" << " ";
@@ -29,5 +30,6 @@ void board(const int field, const int size, const int move, sf::RectangleShape a
             j++;
         }
         *(arrB + i) = rectangle;
+        std::cout << bP[i].x << " " << bP[i].y << " " << i << std::endl;
     }
 }

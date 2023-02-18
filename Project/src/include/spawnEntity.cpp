@@ -26,7 +26,7 @@ void loadTextures(sf::Texture tE[], const std::string pE[], int N)
     }
 }
 
-void entityConfig(const int dB[], const sf::Texture tE[], sf::Sprite sE[], int N)
+void entityConfig(const int dB[], const sf::Texture tE[], sf::Sprite sE[], sf::Vector2f bP[], int N)
 {
     sf::Texture t;
     int countE = 0;
