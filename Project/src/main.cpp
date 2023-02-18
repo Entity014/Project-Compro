@@ -1,8 +1,14 @@
-#include <vector>
+/* SFML */
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+
+/* C++ */
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
+
+/* Include*/
 #include "include/board.cpp"
 #include "include/spawnEntity.cpp"
 

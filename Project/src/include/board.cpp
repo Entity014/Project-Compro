@@ -1,5 +1,3 @@
-#include <SFML/Graphics.hpp>
-
 void board(const int field, const int size, const int move,sf::Vector2f bP[], sf::RectangleShape arrB[])
 {
     int j = 0;

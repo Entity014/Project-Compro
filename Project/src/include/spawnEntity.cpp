@@ -1,7 +1,3 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <cmath>
-
 void defaultBoardCheck(const int dB[] ,int N, int &count)
 {
     for(int i = 0; i < N; i++)
