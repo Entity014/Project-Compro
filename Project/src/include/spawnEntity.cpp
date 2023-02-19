@@ -24,7 +24,6 @@ void loadTextures(sf::Texture tE[], const std::string pE[], int N)
 
 void entityConfig(const int dB[], const sf::Texture tE[], sf::Sprite sE[], sf::Vector2f bP[], int N)
 {
-    sf::Texture t;
     int countE = 0;
     for(int i = 0; i < N; i++)
     {
@@ -42,5 +41,20 @@ void entityConfig(const int dB[], const sf::Texture tE[], sf::Sprite sE[], sf::V
             // std::cout << countE << std::endl;
             countE++;
         }
+    }
+}
+
+void playerConfig(const sf::Texture tP[], sf::Sprite sP[], sf::RectangleShape Status, int N)
+{
+    int countP = 0;
+    sf::Vector2f leftBottom = Status.getPosition();
+    leftBottom.y += Status.getSize().y / 1.70f;
+    for (int i = 0; i < N; i++)
+    {
+        sP[countP].setTexture(tP[i]);
+        sP[countP].setScale(sf::Vector2f(0.25f, 0.25f));
+        sP[countP].setPosition(leftBottom);
+        countP++;
+        // std::cout << leftBottom.y << std::endl;
     }
 }

@@ -5,7 +5,7 @@ void board(const int field, const int size, const int move,sf::Vector2f bP[], sf
     {
         sf::RectangleShape rectangle(sf::Vector2f(size, size));
         rectangle.setPosition(size * (i % field) + move, size * j);
-        bP[i] = rectangle.getPosition();
+        bP[i] = rectangle.getPosition() + 0.15f * rectangle.getSize();
         if (i % 2 == 1 && j % 2 == 0)
         {
             // std::cout << "1" << " ";
@@ -28,6 +28,6 @@ void board(const int field, const int size, const int move,sf::Vector2f bP[], sf
             j++;
         }
         *(arrB + i) = rectangle;
-        std::cout << bP[i].x << " " << bP[i].y << " " << i << std::endl;
+        // std::cout << bP[i].x << " " << bP[i].y << " " << i << std::endl;
     }
 }
