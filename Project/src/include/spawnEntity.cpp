@@ -31,6 +31,7 @@ void entityConfig(const int dB[], const sf::Texture tE[], sf::Sprite sE[], sf::V
         {
             sE[countE].setTexture(tE[abs(*(dB + i)) - 1]);
             sE[countE].setScale(sf::Vector2f(0.45f, 0.45f));
+            sE[countE].setPosition(bP[i]);
             // std::cout << countE << std::endl;
             countE++;
         }
@@ -38,6 +39,7 @@ void entityConfig(const int dB[], const sf::Texture tE[], sf::Sprite sE[], sf::V
         {
             sE[countE].setTexture(tE[*(dB + i) + 5]);
             sE[countE].setScale(sf::Vector2f(0.45f, 0.45f));
+            sE[countE].setPosition(bP[i]);
             // std::cout << countE << std::endl;
             countE++;
         }

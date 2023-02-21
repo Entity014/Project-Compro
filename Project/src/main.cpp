@@ -11,6 +11,7 @@
 /* Include */
 #include "include/board.cpp"
 #include "include/spawnEntity.cpp"
+#include "include/movement.cpp"
 
 /* Variable of display */
 const int width = 800, height = 600;
@@ -164,6 +165,10 @@ int main()
         for (int i = 0; i < fields * fields; i++)
         {
             game.draw(boardChess[i]);
+        }
+        for (int i = 0; i < sizeof(spriteE)/sizeof(spriteE[0]); i++)
+        {
+            game.draw(spriteE[i]);
         }
         // game.draw(spriteE[0]);
         // game.draw(boundingBoxShape);
