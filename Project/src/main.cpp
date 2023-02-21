@@ -170,7 +170,6 @@ int main()
         {
             game.draw(spriteE[i]);
         }
-        // game.draw(spriteE[0]);
         // game.draw(boundingBoxShape);
         game.display();
     }

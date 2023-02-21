@@ -1,6 +1,6 @@
-void move(){
-if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-{
-        spriteE[0].setPosition(Bp[0]+1);
-}
+void move(sf::Sprite sE[], sf::Vector2f bP[]){
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+                sE[0].setPosition(bP[0]);
+        }
 }
