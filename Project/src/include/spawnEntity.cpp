@@ -60,4 +60,3 @@ void playerConfig(const sf::Texture tP[], sf::Sprite sP[], sf::RectangleShape St
         // std::cout << leftBottom.y << std::endl;
     }
 }
-//p
