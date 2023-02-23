@@ -22,6 +22,7 @@ const int moveRight = width - height;
 /* Board */
 sf::RectangleShape boardChess[fields * fields];
 sf::Vector2f boardPositions[fields * fields];
+sf::Color boardColor[fields * fields];
 
 /* Entity */
 /* In Future, it must change */
@@ -52,6 +53,9 @@ std::string pathP[] =
 sf::Texture textureE[sizeof(pathE)/sizeof(pathE[0])];
 sf::Texture textureP[sizeof(pathP)/sizeof(pathP[0])];
 
+/* Movement */
+bool move = false;
+
 int main()
 {
     /* Load Textures */
@@ -62,7 +66,7 @@ int main()
     sf::Sprite spriteP[4];
     sf::RectangleShape Status(sf::Vector2f(moveRight, height));
     playerConfig(textureP, spriteP, Status, sizeof(pathP)/sizeof(pathP[0]));
-    board(fields, tileSize, moveRight, boardPositions, boardChess);
+    board(fields, tileSize, moveRight, boardPositions, boardChess, boardColor);
     spriteP[0].setTextureRect(sf::IntRect(700, 0, 700, 1000));
 
     /* Entity on game */
@@ -153,9 +157,13 @@ int main()
     while (game.isOpen())
     {
         sf::Event event;
+        sf::Vector2f mouse = game.mapPixelToCoords(sf::Mouse::getPosition(game));
         while (game.pollEvent(event))
         {
             if (event.type == sf::Event::Closed) game.close();
+            movement(spriteE, boardPositions, boardChess, mouse, event, fields, move);
+            highlight(boardChess, boardColor, fields, defaultBoard, move);
+
         }
 
         /* Draw */
