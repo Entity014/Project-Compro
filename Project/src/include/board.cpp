@@ -47,3 +47,4 @@ void highlight(sf::RectangleShape bC[], sf::Color bColor[], const int fields, in
         }
     }
 }
+//k
