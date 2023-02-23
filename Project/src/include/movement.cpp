@@ -24,7 +24,7 @@ void movement(sf::Sprite sE[], sf::Vector2f bP[], sf::RectangleShape bC[], sf::V
                                 std::cout << isMove << " " << bC[0].getGlobalBounds().contains(mouse) << std::endl;
                         }
                 }
-        }// เขียนเหี้ยไรเนี้ย ควย
+        }// เขียนเหี้ยไรเนี้ย ควยๆ
         //  if(event sf::Event::MouseButtonReleased(sf::Mouse::Left))
         //         {
         //                 sf::FloatRect bounds = sE[0].getGlobalBounds();
