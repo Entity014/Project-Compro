@@ -35,3 +35,4 @@ void movement(sf::Sprite sE[], sf::Vector2f bP[], sf::RectangleShape bC[], sf::V
         //         }
         //         }
 }
+//test
