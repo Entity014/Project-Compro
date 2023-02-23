@@ -21,6 +21,7 @@ const int moveRight = width - height;
 
 /* Board */
 sf::RectangleShape boardChess[fields * fields];
+sf::RectangleShape boardHighlight[fields * fields];
 sf::Vector2f boardPositions[fields * fields];
 sf::Color boardColor[fields * fields];
 
@@ -66,7 +67,7 @@ int main()
     sf::Sprite spriteP[4];
     sf::RectangleShape Status(sf::Vector2f(moveRight, height));
     playerConfig(textureP, spriteP, Status, sizeof(pathP)/sizeof(pathP[0]));
-    board(fields, tileSize, moveRight, boardPositions, boardChess, boardColor);
+    board(fields, tileSize, moveRight, boardPositions, boardChess, boardHighlight);
     spriteP[0].setTextureRect(sf::IntRect(700, 0, 700, 1000));
 
     /* Entity on game */
@@ -162,7 +163,7 @@ int main()
         {
             if (event.type == sf::Event::Closed) game.close();
             movement(spriteE, boardPositions, boardChess, mouse, event, fields, move);
-            highlight(boardChess, boardColor, fields, defaultBoard, move);
+            highlight(boardChess, boardHighlight, fields, defaultBoard, move);
 
         }
 
@@ -173,6 +174,7 @@ int main()
         for (int i = 0; i < fields * fields; i++)
         {
             game.draw(boardChess[i]);
+            game.draw(boardHighlight[i]);
         }
         for (int i = 0; i < sizeof(spriteE)/sizeof(spriteE[0]); i++)
         {
