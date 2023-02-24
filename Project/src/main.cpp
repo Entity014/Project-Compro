@@ -1,30 +1,17 @@
-/* SFML */
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-
-/* C++ */
-#include <iostream>
-#include <string>
-#include <vector>
-#include <cmath>
-
 /* Include */
-#include "include/board.cpp"
-#include "include/spawnEntity.cpp"
-#include "include/movement.cpp"
-#include "include/class.cpp"
+#include "../include/board.h"
+#include "../include/spawnEntity.h"
+#include "../include/movement.h"
+#include "../include/class.cpp"
 
 /* Variable of display */
 const int width = 800, height = 600;
-const int fields = 8;
+// const int fields = 8;
 const int tileSize = height / fields;
 const int moveRight = width - height;
 
 /* Board */
-sf::RectangleShape boardChess[fields * fields];
-sf::RectangleShape boardHighlight[fields * fields];
-sf::Vector2f boardPositions[fields * fields];
-sf::Color boardColor[fields * fields];
+board masterBoard;
 
 /* Entity */
 /* In Future, it must change */
@@ -68,13 +55,13 @@ int main()
     sf::Sprite spriteP[4];
     sf::RectangleShape Status(sf::Vector2f(moveRight, height));
     playerConfig(textureP, spriteP, Status, sizeof(pathP)/sizeof(pathP[0]));
-    board(fields, tileSize, moveRight, boardPositions, boardChess, boardHighlight);
+    masterBoard.boardConfig(fields, tileSize, moveRight);
     spriteP[0].setTextureRect(sf::IntRect(700, 0, 700, 1000));
 
     /* Entity on game */
     defaultBoardCheck(defaultBoard, sizeof(defaultBoard)/sizeof(defaultBoard[0]), count);
     sf::Sprite spriteE[count];
-    entityConfig(defaultBoard, textureE, spriteE, boardPositions, fields * fields);
+    entityConfig(defaultBoard, textureE, spriteE, masterBoard.boardPositions, fields * fields);
     // spriteE[0].setPosition(boardPositions[0]);
 
     /* boundingBox */
@@ -91,7 +78,7 @@ int main()
     game.setVisible(false);
     
     sf::Font font;
-    if (!font.loadFromFile("font/arial.ttf"))
+    if (!font.loadFromFile("asset/font/arial.TTF"))
     {
         std::cout << "Cannot load font arial.ttf" << std::endl;
     }
@@ -163,8 +150,8 @@ int main()
         while (game.pollEvent(event))
         {
             if (event.type == sf::Event::Closed) game.close();
-            movement(spriteE, boardPositions, boardChess, mouse, event, fields, move);
-            highlight(boardChess, boardHighlight, fields, defaultBoard, move);
+            movement(spriteE, masterBoard.boardPositions, masterBoard.boardChess, mouse, event, fields, move);
+            masterBoard.boardHighlight(fields, defaultBoard, move);
 
         }
 
@@ -174,8 +161,8 @@ int main()
         game.draw(spriteP[0]);
         for (int i = 0; i < fields * fields; i++)
         {
-            game.draw(boardChess[i]);
-            game.draw(boardHighlight[i]);
+            game.draw(masterBoard.boardChess[i]);
+            game.draw(masterBoard.boardSurface[i]);
         }
         for (int i = 0; i < sizeof(spriteE)/sizeof(spriteE[0]); i++)
         {

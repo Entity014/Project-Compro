@@ -1,3 +1,5 @@
+#include "libary.h"
+
 void movement(sf::Sprite sE[], sf::Vector2f bP[], sf::RectangleShape bC[], sf::Vector2f mouse, sf::Event event, const int fields, bool &isMove){
         /* Check Click and move */
         int j = 0;

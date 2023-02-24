@@ -1,4 +1,20 @@
-void board(const int fields, const int size, const int move,sf::Vector2f bP[], sf::RectangleShape bC[], sf::RectangleShape bH[])
+#include "libary.h"
+
+const int fields = 8;
+
+/* Board */
+class board
+{
+    public:
+        sf::RectangleShape boardChess[fields * fields];
+        sf::RectangleShape boardSurface[fields * fields];
+        sf::Vector2f boardPositions[fields * fields];
+        sf::Color boardColor[fields * fields];
+        void boardConfig(const int, const int, const int);
+        void boardHighlight(const int, int [], bool);
+};
+
+void board::boardConfig(const int fields, const int size, const int move)
 {
     int j = 0;
     for (int i = 0; i < fields*fields; i++)
@@ -8,7 +24,7 @@ void board(const int fields, const int size, const int move,sf::Vector2f bP[], s
         bChess.setPosition(size * (i % fields) + move, size * j);
         bHighlight.setPosition(bChess.getPosition());
         bHighlight.setFillColor(sf::Color{101, 232, 65, 0});
-        bP[i] = bChess.getPosition() + 0.15f * bChess.getSize();
+        boardPositions[i] = bChess.getPosition() + 0.15f * bChess.getSize();
         if (i % 2 == 1 && j % 2 == 0)
         {
             // std::cout << "1" << " ";
@@ -30,23 +46,23 @@ void board(const int fields, const int size, const int move,sf::Vector2f bP[], s
             // std::cout << std::endl;
             j++;
         }
-        *(bC + i) = bChess;
-        *(bH + i) = bHighlight;
+        *(boardChess + i) = bChess;
+        *(boardSurface + i) = bHighlight;
         // std::cout << bP[i].x << " " << bP[i].y << " " << i << std::endl;
         }
 }
 
-void highlight(sf::RectangleShape bC[], sf::RectangleShape bH[], const int fields, int dB[], bool isMove)
+void board::boardHighlight(const int fields, int dB[], bool isMove)
 {
     for (int i = 0; i < fields * fields; i++)
     {
         if(isMove == true)
         {
-            bH[i].setFillColor(sf::Color{101, 232, 65, 100});
+            boardSurface[i].setFillColor(sf::Color{101, 232, 65, 100});
         }
         else
         {
-            bH[i].setFillColor(sf::Color{101, 232, 65, 0});
+            boardSurface[i].setFillColor(sf::Color{101, 232, 65, 0});
         }
     }
 }
