@@ -1,5 +1,5 @@
 #include "libary.h"
-void movement(Board mB, Unit &enemy, sf::Event event, sf::Vector2f mouse)
+void movement(Board &mB, Unit &enemy, sf::Event event, sf::Vector2f mouse)
 {
         /* Check Click and move */
         if (event.type == sf::Event::MouseButtonPressed)
@@ -12,9 +12,9 @@ void movement(Board mB, Unit &enemy, sf::Event event, sf::Vector2f mouse)
                                 if (bounds.contains(mouse))
                                 {
                                         enemy.isMove = true;
-                                        std::cout << enemy.entityType << std::endl;
+                                        // std::cout << enemy.moveType << std::endl;
                                 }
-                                else if (mB.boardChess[i].getGlobalBounds().contains(mouse) && enemy.isMove == true)
+                                else if (mB.boardChess[i].getGlobalBounds().contains(mouse) && enemy.isMove)
                                 {
                                         enemy.isMove = false;
                                         enemy.entity.setPosition(mB.boardPositions[i]);

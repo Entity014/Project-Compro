@@ -36,20 +36,20 @@ int main()
 {
     /* Status */
     sf::RectangleShape Status(sf::Vector2f(moveRight, height));
-    masterBoard.boardConfig(fields, tileSize, moveRight);
+    masterBoard.boardConfig();
     defaultBoardCheck(defaultBoard, fields * fields, count);
 
     /* Unit */
     Unit player[4], enemy[count];
     int unitChess[count];
-    int countE = 0;
+    int countE = 0, select = 0;
     for (int i = 0; i < fields * fields; i++)
     {
         if (*(defaultBoard + i) < 0)
         {
             enemy[countE].unitType = "Enemy";
             enemy[countE].entityConfig(pathE[abs(*(defaultBoard + i)) - 1], masterBoard.boardPositions[i], Status);
-            enemy[countE].entityType = *(defaultBoard + i);
+            enemy[countE].moveType = *(defaultBoard + i);
             // std::cout << enemy[countE].entityType << std::endl;
             countE++;
         }
@@ -57,7 +57,7 @@ int main()
         {
             enemy[countE].unitType = "Enemy";
             enemy[countE].entityConfig(pathE[*(defaultBoard + i) + 5], masterBoard.boardPositions[i], Status);
-            enemy[countE].entityType = *(defaultBoard + i);
+            enemy[countE].moveType = *(defaultBoard + i);
             // std::cout << enemy[countE].entityType << std::endl;
             countE++;
         }
@@ -157,12 +157,13 @@ int main()
         while (game.pollEvent(event))
         {
             if (event.type == sf::Event::Closed) game.close();
+
             /* Movement */
-            // movement(spriteE, masterBoard.boardPositions, masterBoard.boardChess, mouse, event, count, unitChess, fields, move);
             for (int i = 0; i < count; i++)
             {
                 movement(masterBoard, enemy[i], event, mouse);
-                masterBoard.boardHighlight(fields, count, enemy[i].isMove);
+                if (enemy[i].isMove) select = i;
+                masterBoard.boardHighlight(count, enemy[select].moveType, enemy[select].isMove);
                 // std::cout << enemy[i].isMove << std::endl;
             }
         }

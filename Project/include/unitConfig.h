@@ -4,7 +4,7 @@ class Unit
 {
     public:
         std::string unitType;
-        int entityType;
+        int moveType;
         bool isMove = false;
         sf::Sprite entity;
         sf::Texture texture;
