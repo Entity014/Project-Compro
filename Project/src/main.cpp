@@ -12,6 +12,7 @@
 #include "include/board.cpp"
 #include "include/spawnEntity.cpp"
 #include "include/movement.cpp"
+#include "include/class.cpp"
 
 /* Variable of display */
 const int width = 800, height = 600;
