@@ -159,9 +159,12 @@ int main()
             if (event.type == sf::Event::Closed) game.close();
             /* Movement */
             // movement(spriteE, masterBoard.boardPositions, masterBoard.boardChess, mouse, event, count, unitChess, fields, move);
-            movement(masterBoard, enemy[0], event, mouse);
-            masterBoard.boardHighlight(fields, count, enemy[0].isMove);
-            std::cout << enemy[0].isMove << std::endl;
+            for (int i = 0; i < count; i++)
+            {
+                movement(masterBoard, enemy[i], event, mouse);
+                masterBoard.boardHighlight(fields, count, enemy[i].isMove);
+                // std::cout << enemy[i].isMove << std::endl;
+            }
         }
 
         /* Draw */
