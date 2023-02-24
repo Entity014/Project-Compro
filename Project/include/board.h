@@ -1,9 +1,13 @@
 #include "libary.h"
 
+/* Variable of display */
+const int width = 800, height = 600;
 const int fields = 8;
+const int tileSize = height / fields;
+const int moveRight = width - height;
 
 /* Board */
-class board
+class Board
 {
     public:
         sf::RectangleShape boardChess[fields * fields];
@@ -11,10 +15,10 @@ class board
         sf::Vector2f boardPositions[fields * fields];
         sf::Color boardColor[fields * fields];
         void boardConfig(const int, const int, const int);
-        void boardHighlight(const int, int [], bool);
+        void boardHighlight(const int, int, bool);
 };
 
-void board::boardConfig(const int fields, const int size, const int move)
+void Board::boardConfig(const int fields, const int size, const int move)
 {
     int j = 0;
     for (int i = 0; i < fields*fields; i++)
@@ -52,7 +56,7 @@ void board::boardConfig(const int fields, const int size, const int move)
         }
 }
 
-void board::boardHighlight(const int fields, int dB[], bool isMove)
+void Board::boardHighlight(const int fields, int count, bool isMove)
 {
     for (int i = 0; i < fields * fields; i++)
     {
@@ -65,5 +69,32 @@ void board::boardHighlight(const int fields, int dB[], bool isMove)
             boardSurface[i].setFillColor(sf::Color{101, 232, 65, 0});
         }
     }
+}
+
+void defaultBoardCheck(const int dB[] ,int N, int &count)
+{
+    for(int i = 0; i < N; i++)
+    {
+        if(*(dB + i) != 0)
+        {
+            count++;
+        }
+    }
+    // std::cout << count << std::endl;
+}
+
+void showDefualtBoard(int dB[])
+{
+    int j;
+    for(int i = 0; i < fields * fields; i++)
+    {
+        std::cout << dB[i] << " ";
+        if (i % fields == fields - 1)
+        {
+            std::cout << std::endl;
+            j++;
+        }
+    }
+    std::cout << "----------------------" << std::endl;
 }
 

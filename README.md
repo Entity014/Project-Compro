@@ -2,4 +2,5 @@
 <h2> Log Board </h2>
 <ul>
     <li> 24/2/66 [16:22] Phytes : เปลี่ยน fuction เป็น class และเปลี่ยน .cpp เป็น .h </li>
+    <li> 24/2/66 [19:41] Phytes : เปลี่ยน fuction เป็น class และทำระบบเดิน </li>
 </ul>

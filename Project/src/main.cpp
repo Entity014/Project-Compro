@@ -1,17 +1,10 @@
 /* Include */
 #include "../include/board.h"
-#include "../include/spawnEntity.h"
+#include "../include/unitConfig.h"
 #include "../include/movement.h"
-#include "../include/class.cpp"
-
-/* Variable of display */
-const int width = 800, height = 600;
-// const int fields = 8;
-const int tileSize = height / fields;
-const int moveRight = width - height;
 
 /* Board */
-board masterBoard;
+Board masterBoard;
 
 /* Entity */
 /* In Future, it must change */
@@ -39,30 +32,43 @@ std::string pathP[] =
     "asset/texture/test.png"
 };
 
-sf::Texture textureE[sizeof(pathE)/sizeof(pathE[0])];
-sf::Texture textureP[sizeof(pathP)/sizeof(pathP[0])];
-
-/* Movement */
-bool move = false;
-
 int main()
 {
-    /* Load Textures */
-    loadTextures(textureP, pathP, sizeof(pathP)/sizeof(pathP[0]));
-    loadTextures(textureE, pathE, sizeof(pathE)/sizeof(pathE[0]));
-
     /* Status */
-    sf::Sprite spriteP[4];
     sf::RectangleShape Status(sf::Vector2f(moveRight, height));
-    playerConfig(textureP, spriteP, Status, sizeof(pathP)/sizeof(pathP[0]));
     masterBoard.boardConfig(fields, tileSize, moveRight);
-    spriteP[0].setTextureRect(sf::IntRect(700, 0, 700, 1000));
+    defaultBoardCheck(defaultBoard, fields * fields, count);
 
-    /* Entity on game */
-    defaultBoardCheck(defaultBoard, sizeof(defaultBoard)/sizeof(defaultBoard[0]), count);
-    sf::Sprite spriteE[count];
-    entityConfig(defaultBoard, textureE, spriteE, masterBoard.boardPositions, fields * fields);
-    // spriteE[0].setPosition(boardPositions[0]);
+    /* Unit */
+    Unit player[4], enemy[count];
+    int unitChess[count];
+    int countE = 0;
+    for (int i = 0; i < fields * fields; i++)
+    {
+        if (*(defaultBoard + i) < 0)
+        {
+            enemy[countE].unitType = "Enemy";
+            enemy[countE].entityConfig(pathE[abs(*(defaultBoard + i)) - 1], masterBoard.boardPositions[i], Status);
+            enemy[countE].entityType = *(defaultBoard + i);
+            // std::cout << enemy[countE].entityType << std::endl;
+            countE++;
+        }
+        else if (*(defaultBoard + i) > 0)
+        {
+            enemy[countE].unitType = "Enemy";
+            enemy[countE].entityConfig(pathE[*(defaultBoard + i) + 5], masterBoard.boardPositions[i], Status);
+            enemy[countE].entityType = *(defaultBoard + i);
+            // std::cout << enemy[countE].entityType << std::endl;
+            countE++;
+        }
+    }
+
+    for (int i = 0; i < sizeof(pathP)/sizeof(pathP[0]); i++)
+    {
+        player[i].unitType = "Player";
+        player[i].entityConfig(pathP[i], sf::Vector2f(0.f, 0.f), Status);
+    }
+    player[0].entity.setTextureRect(sf::IntRect(700, 0, 700, 1000));
 
     /* boundingBox */
     // sf::FloatRect boundingBox = spriteE[0].getGlobalBounds();
@@ -145,29 +151,32 @@ int main()
     game.setActive(true);
     while (game.isOpen())
     {
+        // showDefualtBoard(defaultBoard);
         sf::Event event;
         sf::Vector2f mouse = game.mapPixelToCoords(sf::Mouse::getPosition(game));
         while (game.pollEvent(event))
         {
             if (event.type == sf::Event::Closed) game.close();
-            movement(spriteE, masterBoard.boardPositions, masterBoard.boardChess, mouse, event, fields, move);
-            masterBoard.boardHighlight(fields, defaultBoard, move);
-
+            /* Movement */
+            // movement(spriteE, masterBoard.boardPositions, masterBoard.boardChess, mouse, event, count, unitChess, fields, move);
+            movement(masterBoard, enemy[0], event, mouse);
+            masterBoard.boardHighlight(fields, count, enemy[0].isMove);
+            std::cout << enemy[0].isMove << std::endl;
         }
 
         /* Draw */
         game.clear();
         game.draw(Status);
-        game.draw(spriteP[0]);
         for (int i = 0; i < fields * fields; i++)
         {
             game.draw(masterBoard.boardChess[i]);
             game.draw(masterBoard.boardSurface[i]);
         }
-        for (int i = 0; i < sizeof(spriteE)/sizeof(spriteE[0]); i++)
+        for (int i = 0; i < count; i++)
         {
-            game.draw(spriteE[i]);
+            game.draw(enemy[i].entity);
         }
+        game.draw(player[0].entity);
         // game.draw(boundingBoxShape);
         game.display();
     }
