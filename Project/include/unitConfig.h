@@ -5,7 +5,9 @@ class Unit
     public:
         std::string unitType;
         int moveType;
+        int position;
         bool isMove = false;
+        bool firstMove = false;
         sf::Sprite entity;
         sf::Texture texture;
         void loadTextures(const std::string);

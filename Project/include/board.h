@@ -15,7 +15,7 @@ class Board
         sf::Vector2f boardPositions[fields * fields];
         sf::Color boardColor[fields * fields];
         void boardConfig();
-        void boardHighlight(int, int, bool);
+        void boardHighlight(int [], int, bool, bool);
 };
 
 void Board::boardConfig()
@@ -28,7 +28,7 @@ void Board::boardConfig()
         bChess.setPosition(tileSize * (i % fields) + moveRight, tileSize * j);
         bHighlight.setPosition(bChess.getPosition());
         bHighlight.setFillColor(sf::Color{101, 232, 65, 0});
-        boardPositions[i] = bChess.getPosition() + 0.15f * bChess.getSize();
+        boardPositions[i] = bChess.getPosition() + 0.2f * bChess.getSize();
         if (i % 2 == 1 && j % 2 == 0)
         {
             // std::cout << "1" << " ";
@@ -56,33 +56,58 @@ void Board::boardConfig()
         }
 }
 
-void Board::boardHighlight(int count, int moveType, bool isMove)
+void Board::boardHighlight(int dB[] ,int moveType, bool isMove, bool firstMove)
 {
     for (int i = 0; i < fields * fields; i++)
     {
-        if(isMove == true && (moveType == -1 || moveType == 1))
+        if(isMove && (moveType == -1 || moveType == 1))
         {
-            boardSurface[i].setFillColor(sf::Color{101, 232, 65, 100});
+            if (*(dB + i) == 0)
+            {
+                boardSurface[i].setFillColor(sf::Color{101, 232, 65, 100});
+            }
         }
-        else if(isMove == true && (moveType == -2 || moveType == 2))
+        else if(isMove && (moveType == -2 || moveType == 2))
         {
-            boardSurface[i].setFillColor(sf::Color{52, 180, 235, 100});
+            if (*(dB + i) == 0)
+            {
+                boardSurface[i].setFillColor(sf::Color{52, 180, 235, 100});
+            }
         }
-        else if(isMove == true && (moveType == -3 || moveType == 3))
+        else if(isMove && (moveType == -3 || moveType == 3))
         {
-            boardSurface[i].setFillColor(sf::Color{71, 53, 232, 100});
+            if (*(dB + i) == 0)
+            {
+                boardSurface[i].setFillColor(sf::Color{71, 53, 232, 100});
+            }
         }
-        else if(isMove == true && (moveType == -4 || moveType == 4))
+        else if(isMove && (moveType == -4 || moveType == 4))
         {
-            boardSurface[i].setFillColor(sf::Color{224, 52, 213, 100});
+            if (*(dB + i) == 0)
+            {
+                boardSurface[i].setFillColor(sf::Color{224, 52, 213, 100});
+            }
         }
-        else if(isMove == true && (moveType == -5 || moveType == 5))
+        else if(isMove && (moveType == -5 || moveType == 5))
         {
-            boardSurface[i].setFillColor(sf::Color{212, 168, 59, 100});
+            if (*(dB + i) == 0)
+            {
+                boardSurface[i].setFillColor(sf::Color{212, 168, 59, 100});
+            }
         }
-        else if(isMove == true && (moveType == -6 || moveType == 6))
+        else if(isMove && (moveType == -6 || moveType == 6))
         {
-            boardSurface[i].setFillColor(sf::Color{207, 29, 61, 100});
+            if(!firstMove)
+            {
+                if (*(dB + i) == 0)
+                {
+                    boardSurface[i].setFillColor(sf::Color{207, 29, 61, 100});
+                }
+            }
+            else
+            {
+                boardSurface[i].setFillColor(sf::Color{212, 168, 59, 100});
+            }
         }
         else
         {

@@ -50,6 +50,7 @@ int main()
             enemy[countE].unitType = "Enemy";
             enemy[countE].entityConfig(pathE[abs(*(defaultBoard + i)) - 1], masterBoard.boardPositions[i], Status);
             enemy[countE].moveType = *(defaultBoard + i);
+            enemy[countE].position = i;
             // std::cout << enemy[countE].entityType << std::endl;
             countE++;
         }
@@ -58,6 +59,7 @@ int main()
             enemy[countE].unitType = "Enemy";
             enemy[countE].entityConfig(pathE[*(defaultBoard + i) + 5], masterBoard.boardPositions[i], Status);
             enemy[countE].moveType = *(defaultBoard + i);
+            enemy[countE].position = i;
             // std::cout << enemy[countE].entityType << std::endl;
             countE++;
         }
@@ -151,19 +153,18 @@ int main()
     game.setActive(true);
     while (game.isOpen())
     {
-        // showDefualtBoard(defaultBoard);
         sf::Event event;
         sf::Vector2f mouse = game.mapPixelToCoords(sf::Mouse::getPosition(game));
         while (game.pollEvent(event))
         {
             if (event.type == sf::Event::Closed) game.close();
-
+            showDefualtBoard(defaultBoard);
             /* Movement */
             for (int i = 0; i < count; i++)
             {
-                movement(masterBoard, enemy[i], event, mouse);
+                movement(masterBoard, enemy[i], event, mouse, defaultBoard);
                 if (enemy[i].isMove) select = i;
-                masterBoard.boardHighlight(count, enemy[select].moveType, enemy[select].isMove);
+                masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].isMove, enemy[select].firstMove);
                 // std::cout << enemy[i].isMove << std::endl;
             }
         }
