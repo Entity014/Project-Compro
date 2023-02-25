@@ -14,7 +14,7 @@ void movement(Board &mB, Unit &enemy, sf::Event event, sf::Vector2f mouse, int d
                                         enemy.isMove = true;
                                         // std::cout << enemy.moveType << std::endl;
                                 }
-                                else if (mB.boardChess[i].getGlobalBounds().contains(mouse) && enemy.isMove)
+                                else if (mB.boardSurface[i].getGlobalBounds().contains(mouse) && int(mB.boardSurface[i].getFillColor().a) != 0 && enemy.isMove)
                                 {
                                         int temp = 0;
                                         enemy.isMove = false;
@@ -24,6 +24,7 @@ void movement(Board &mB, Unit &enemy, sf::Event event, sf::Vector2f mouse, int d
                                         dB[i] = enemy.moveType;
                                         enemy.position = i;
                                         std::cout << enemy.moveType << " " << i << std::endl;
+                                        // std::cout << int(mB.boardSurface[i].getFillColor().a) << std::endl;
                                         break;
                                 }
                         }

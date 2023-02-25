@@ -15,7 +15,7 @@ class Board
         sf::Vector2f boardPositions[fields * fields];
         sf::Color boardColor[fields * fields];
         void boardConfig();
-        void boardHighlight(int [], int, bool, bool);
+        void boardHighlight(int [], int, int, bool, bool);
 };
 
 void Board::boardConfig()
@@ -28,7 +28,7 @@ void Board::boardConfig()
         bChess.setPosition(tileSize * (i % fields) + moveRight, tileSize * j);
         bHighlight.setPosition(bChess.getPosition());
         bHighlight.setFillColor(sf::Color{101, 232, 65, 0});
-        boardPositions[i] = bChess.getPosition() + 0.2f * bChess.getSize();
+        boardPositions[i] = bChess.getPosition() + (0.15f * bChess.getSize());
         if (i % 2 == 1 && j % 2 == 0)
         {
             // std::cout << "1" << " ";
@@ -56,8 +56,9 @@ void Board::boardConfig()
         }
 }
 
-void Board::boardHighlight(int dB[] ,int moveType, bool isMove, bool firstMove)
+void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, bool firstMove)
 {
+    int j = 0;
     for (int i = 0; i < fields * fields; i++)
     {
         if(isMove && (moveType == -1 || moveType == 1))
@@ -101,12 +102,36 @@ void Board::boardHighlight(int dB[] ,int moveType, bool isMove, bool firstMove)
             {
                 if (*(dB + i) == 0)
                 {
-                    boardSurface[i].setFillColor(sf::Color{207, 29, 61, 100});
+                    if (i % fields < 3 && i % fields > 0)
+                    {
+                        if (moveType == -6)
+                        {
+                            boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{207, 29, 61, 100});
+                        }
+                        else
+                        {
+                            boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{207, 29, 61, 100});
+                        }
+                        // std::cout << fields * float(i%fields) << std::endl;
+                    }
                 }
             }
             else
             {
-                boardSurface[i].setFillColor(sf::Color{212, 168, 59, 100});
+                if (*(dB + i) == 0)
+                {
+                    if (i % fields < 2 && i % fields > 0)
+                    {
+                        if (moveType == -6)
+                        {
+                            boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
+                        }
+                        else
+                        {
+                            boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
+                        }
+                    }
+                }
             }
         }
         else

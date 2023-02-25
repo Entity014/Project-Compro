@@ -158,13 +158,13 @@ int main()
         while (game.pollEvent(event))
         {
             if (event.type == sf::Event::Closed) game.close();
-            showDefualtBoard(defaultBoard);
+            // showDefualtBoard(defaultBoard);
             /* Movement */
             for (int i = 0; i < count; i++)
             {
                 movement(masterBoard, enemy[i], event, mouse, defaultBoard);
                 if (enemy[i].isMove) select = i;
-                masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].isMove, enemy[select].firstMove);
+                masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].position, enemy[select].isMove, enemy[select].firstMove);
                 // std::cout << enemy[i].isMove << std::endl;
             }
         }
