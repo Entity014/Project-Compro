@@ -61,6 +61,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
     int j = 0;
     for (int i = 0; i < fields * fields; i++)
     {
+        /* Rook */
         if(isMove && (moveType == -1 || moveType == 1))
         {
             if (*(dB + i) == 0)
@@ -68,6 +69,8 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 boardSurface[i].setFillColor(sf::Color{101, 232, 65, 100});
             }
         }
+
+        /* Knight */
         else if(isMove && (moveType == -2 || moveType == 2))
         {
             if (*(dB + i) == 0)
@@ -75,6 +78,8 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 boardSurface[i].setFillColor(sf::Color{52, 180, 235, 100});
             }
         }
+
+        /* Bishop */
         else if(isMove && (moveType == -3 || moveType == 3))
         {
             if (*(dB + i) == 0)
@@ -82,6 +87,8 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 boardSurface[i].setFillColor(sf::Color{71, 53, 232, 100});
             }
         }
+
+        /* Queen */
         else if(isMove && (moveType == -4 || moveType == 4))
         {
             if (*(dB + i) == 0)
@@ -89,6 +96,8 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 boardSurface[i].setFillColor(sf::Color{224, 52, 213, 100});
             }
         }
+        
+        /* King */
         else if(isMove && (moveType == -5 || moveType == 5))
         {
             if (*(dB + i) == 0)
@@ -96,6 +105,8 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 boardSurface[i].setFillColor(sf::Color{212, 168, 59, 100});
             }
         }
+
+        /* Pawn */
         else if(isMove && (moveType == -6 || moveType == 6))
         {
             if(!firstMove)
