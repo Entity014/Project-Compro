@@ -23,7 +23,7 @@ void movement(Board &mB, Unit &enemy, sf::Event event, sf::Vector2f mouse, int d
                                         dB[enemy.position] = temp;
                                         dB[i] = enemy.moveType;
                                         enemy.position = i;
-                                        std::cout << enemy.moveType << " " << i << std::endl;
+                                        // std::cout << enemy.moveType << " " << i << std::endl;
                                         // std::cout << int(mB.boardSurface[i].getFillColor().a) << std::endl;
                                         break;
                                 }

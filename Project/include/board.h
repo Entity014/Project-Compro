@@ -100,9 +100,26 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
         /* King */
         else if(isMove && (moveType == -5 || moveType == 5))
         {
-            if (*(dB + i) == 0)
+            if (i % fields < 2 && i % fields > 0)
             {
-                boardSurface[i].setFillColor(sf::Color{212, 168, 59, 100});
+                if (moveType == -5)
+                {
+                    // std::cout << postion + int(fields * float(i%fields)) << std::endl;
+                    boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
+                    if (postion - int(fields * float(i%fields)) >= 0)
+                    {
+                        boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
+                    }
+                }
+                else if (moveType == 5)
+                {
+                    // std::cout << postion + int(fields * float(i%fields)) << std::endl;
+                    boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
+                    if (postion - int(fields * float(i%fields)) >= 0)
+                    {
+                        boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
+                    }
+                }
             }
         }
 
@@ -111,36 +128,30 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
         {
             if(!firstMove)
             {
-                if (*(dB + i) == 0)
+                if (i % fields < 3 && i % fields > 0)
                 {
-                    if (i % fields < 3 && i % fields > 0)
+                    if (moveType == -6 && dB[postion + int(fields * float(i%fields))] == 0 && dB[postion + int(fields * float(1))] == 0)
                     {
-                        if (moveType == -6)
-                        {
-                            boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{207, 29, 61, 100});
-                        }
-                        else
-                        {
-                            boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{207, 29, 61, 100});
-                        }
-                        // std::cout << fields * float(i%fields) << std::endl;
+                        boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{207, 29, 61, 100});
                     }
+                    else if (moveType == 6 && dB[postion - int(fields * float(i%fields))] == 0 && dB[postion - int(fields * float(1))] == 0)
+                    {
+                        boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{207, 29, 61, 100});
+                    }
+                    // std::cout << fields * float(i%fields) << std::endl;
                 }
             }
             else
             {
-                if (*(dB + i) == 0)
+                if (i % fields < 2 && i % fields > 0)
                 {
-                    if (i % fields < 2 && i % fields > 0)
+                    if (moveType == -6 && dB[postion + int(fields * float(i%fields))] == 0)
                     {
-                        if (moveType == -6)
-                        {
-                            boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
-                        }
-                        else
-                        {
-                            boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
-                        }
+                        boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
+                    }
+                    else if (moveType == 6 && dB[postion - int(fields * float(i%fields))] == 0)
+                    {
+                        boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
                     }
                 }
             }

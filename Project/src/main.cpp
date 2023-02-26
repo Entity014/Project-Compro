@@ -163,9 +163,15 @@ int main()
             for (int i = 0; i < count; i++)
             {
                 movement(masterBoard, enemy[i], event, mouse, defaultBoard);
-                if (enemy[i].isMove) select = i;
+                if (enemy[i].isMove && !enemy[select].isMove) 
+                {
+                    select = i;
+                }
+                else if (enemy[i].isMove && enemy[select].isMove && i != select)
+                {
+                    enemy[select].isMove = false;
+                }
                 masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].position, enemy[select].isMove, enemy[select].firstMove);
-                // std::cout << enemy[i].isMove << std::endl;
             }
         }
 
