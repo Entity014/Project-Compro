@@ -69,7 +69,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
             if (postion + int(fields * i) > postion && postion + int(fields * i) < 64)
             {
                 // std::cout << postion + int(fields * i) << " " << postion << std::endl;
-                boardSurface[postion + int(fields * i)].setFillColor(sf::Color{52, 180, 235, 100});
+                boardSurface[postion + int(fields * i)].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion + int(fields * i)] != 0)
                 {
                     boardSurface[postion + int(fields * i)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -84,7 +84,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
             if (postion - int(fields * i) < postion && postion - int(fields * i) >= 0)
             {
                 // std::cout << postion - int(fields * i) << " " << postion << std::endl;
-                boardSurface[postion - int(fields * i)].setFillColor(sf::Color{52, 180, 235, 100});
+                boardSurface[postion - int(fields * i)].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion - int(fields * i)] != 0)
                 {
                     boardSurface[postion - int(fields * i)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -100,7 +100,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
             if (((postion + i) % fields) > (postion % fields))
             {
                 // std::cout << (postion + i) % fields << " " << postion % fields << std::endl;
-                boardSurface[postion + i].setFillColor(sf::Color{52, 180, 235, 100});
+                boardSurface[postion + i].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion + i] != 0)
                 {
                     boardSurface[postion + i].setFillColor(sf::Color{0, 0, 0, 0});
@@ -114,7 +114,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
             if (((postion - i) % fields) < (postion % fields) && ((postion - i) % fields) >= 0)
             {
                 // std::cout << (postion - i) % fields << " " << postion % fields << std::endl;
-                boardSurface[postion - i].setFillColor(sf::Color{52, 180, 235, 100});
+                boardSurface[postion - i].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion - i] != 0)
                 {
                     boardSurface[postion - i].setFillColor(sf::Color{0, 0, 0, 0});
@@ -136,7 +136,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 if (postion + (2 * fields) + (i % fields - 1) < 64 && (i % fields - 1) != 0)
                 {
                     // std::cout << (i % fields - 1) << std::endl;
-                    boardSurface[postion + (2 * fields) + (i % fields - 1)].setFillColor(sf::Color{212, 168, 59, 100});
+                    boardSurface[postion + (2 * fields) + (i % fields - 1)].setFillColor(sf::Color{101, 232, 65, 100});
                     if (dB[postion + (2 * fields) + (i % fields - 1)] != 0 || (abs((postion % fields) - ((postion + (2 * fields) + (i % fields - 1)) % fields)) == 7))
                     {
                         boardSurface[postion + (2 * fields) + (i % fields - 1)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -147,7 +147,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 /* Move Back Layer 1 */
                 if (postion - (2 * fields) + (i % fields - 1) >= 0 && (i % fields - 1) != 0)
                 {
-                    boardSurface[postion - (2 * fields) + (i % fields - 1)].setFillColor(sf::Color{212, 168, 59, 100});
+                    boardSurface[postion - (2 * fields) + (i % fields - 1)].setFillColor(sf::Color{101, 232, 65, 100});
                     if (dB[postion - (2 * fields) + (i % fields - 1)] != 0 || (abs((postion % fields) - ((postion - (2 * fields) + (i % fields - 1)) % fields)) == 7))
                     {
                         boardSurface[postion - (2 * fields) + (i % fields - 1)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -159,7 +159,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 /* Move Front Layer 2 */
                 if ((i % fields - 1) != 0 && postion + fields + ((i % fields - 1) * 2) < 64)
                 {
-                    boardSurface[postion + fields + ((i % fields - 1) * 2)].setFillColor(sf::Color{212, 168, 59, 100});
+                    boardSurface[postion + fields + ((i % fields - 1) * 2)].setFillColor(sf::Color{101, 232, 65, 100});
                     if (dB[postion + fields + ((i % fields - 1) * 2)] != 0 || (abs((postion % fields) - ((postion + fields + ((i % fields - 1) * 2)) % fields)) == 6))
                     {
                         boardSurface[postion + fields + ((i % fields - 1) * 2)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -170,7 +170,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 /* Move Back Layer 2 */
                 if ((i % fields - 1) != 0 && postion - fields + ((i % fields - 1) * 2) >= 0)
                 {
-                    boardSurface[postion - fields + ((i % fields - 1) * 2)].setFillColor(sf::Color{212, 168, 59, 100});
+                    boardSurface[postion - fields + ((i % fields - 1) * 2)].setFillColor(sf::Color{101, 232, 65, 100});
                     if (dB[postion - fields + ((i % fields - 1) * 2)] != 0 || (abs((postion % fields) - ((postion - fields + ((i % fields - 1) * 2)) % fields)) == 6))
                     {
                         boardSurface[postion - fields + ((i % fields - 1) * 2)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -191,7 +191,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
         {
             if (postion + i + (i * fields) > postion && postion + i + (i * fields) < 64)
             {
-                boardSurface[postion + i + (i * fields)].setFillColor(sf::Color{71, 53, 232, 100});
+                boardSurface[postion + i + (i * fields)].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion + i + (i * fields)] != 0 || (((postion + i + (i * fields)) % fields) < (postion % fields)))
                 {
                     boardSurface[postion + i + (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -206,7 +206,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
         {
             if (postion + i - (i * fields) < postion && postion + i - (i * fields) >= 0)
             {
-                boardSurface[postion + i - (i * fields)].setFillColor(sf::Color{71, 53, 232, 100});
+                boardSurface[postion + i - (i * fields)].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion + i - (i * fields)] != 0 || (((postion + i - (i * fields)) % fields) < (postion % fields)))
                 {
                     boardSurface[postion + i - (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -222,7 +222,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
         {
             if (postion - i + (i * fields) > postion && postion - i + (i * fields) < 64)
             {
-                boardSurface[postion - i + (i * fields)].setFillColor(sf::Color{71, 53, 232, 100});
+                boardSurface[postion - i + (i * fields)].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion - i + (i * fields)] != 0 || (((postion - i + (i * fields)) % fields) > (postion % fields)))
                 {
                     boardSurface[postion - i + (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -237,7 +237,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
         {
             if (postion - i - (i * fields) < postion && postion - i - (i * fields) >= 0)
             {
-                boardSurface[postion - i - (i * fields)].setFillColor(sf::Color{71, 53, 232, 100});
+                boardSurface[postion - i - (i * fields)].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion - i - (i * fields)] != 0 || (((postion - i - (i * fields)) % fields) > (postion % fields)))
                 {
                     boardSurface[postion - i - (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -251,6 +251,68 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
     // ? Queen
     else if(isMove && (moveType == -4 || moveType == 4))
     {
+        // TODO: Move Right
+        /* Move Down Right */
+        for (int i = 0; i < fields; i++)
+        {
+            if (postion + i + (i * fields) > postion && postion + i + (i * fields) < 64)
+            {
+                boardSurface[postion + i + (i * fields)].setFillColor(sf::Color{101, 232, 65, 100});
+                if (dB[postion + i + (i * fields)] != 0 || (((postion + i + (i * fields)) % fields) < (postion % fields)))
+                {
+                    boardSurface[postion + i + (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
+                    break;
+                }
+                // std::cout << (postion + i + (i * fields)) % fields << " " << postion % fields << std::endl;
+            }
+        }
+
+        /* Move Up Right */
+        for (int i = 0; i < fields; i++)
+        {
+            if (postion + i - (i * fields) < postion && postion + i - (i * fields) >= 0)
+            {
+                boardSurface[postion + i - (i * fields)].setFillColor(sf::Color{101, 232, 65, 100});
+                if (dB[postion + i - (i * fields)] != 0 || (((postion + i - (i * fields)) % fields) < (postion % fields)))
+                {
+                    boardSurface[postion + i - (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
+                    break;
+                }
+                // std::cout << (postion + i - (i * fields)) % fields << " " << postion % fields << std::endl;
+            }
+        }
+
+        // TODO: Move Left
+        /* Move Down Left */
+        for (int i = 0; i < fields; i++)
+        {
+            if (postion - i + (i * fields) > postion && postion - i + (i * fields) < 64)
+            {
+                boardSurface[postion - i + (i * fields)].setFillColor(sf::Color{101, 232, 65, 100});
+                if (dB[postion - i + (i * fields)] != 0 || (((postion - i + (i * fields)) % fields) > (postion % fields)))
+                {
+                    boardSurface[postion - i + (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
+                    break;
+                }
+                // std::cout << (postion - i + (i * fields)) % fields << " " << postion % fields << std::endl;
+            }
+        }
+
+        /* Move Up Left */
+        for (int i = 0; i < fields; i++)
+        {
+            if (postion - i - (i * fields) < postion && postion - i - (i * fields) >= 0)
+            {
+                boardSurface[postion - i - (i * fields)].setFillColor(sf::Color{101, 232, 65, 100});
+                if (dB[postion - i - (i * fields)] != 0 || (((postion - i - (i * fields)) % fields) > (postion % fields)))
+                {
+                    boardSurface[postion - i - (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
+                    break;
+                }
+                // std::cout << (postion - i - (i * fields)) % fields << " " << postion % fields << std::endl;
+            }
+        }
+
         // TODO: Move Y
         /* Down */
         for (int i = 0; i < fields; i++)
@@ -258,7 +320,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
             if (postion + int(fields * i) > postion && postion + int(fields * i) < 64)
             {
                 // std::cout << postion + int(fields * i) << " " << postion << std::endl;
-                boardSurface[postion + int(fields * i)].setFillColor(sf::Color{52, 180, 235, 100});
+                boardSurface[postion + int(fields * i)].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion + int(fields * i)] != 0)
                 {
                     boardSurface[postion + int(fields * i)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -273,7 +335,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
             if (postion - int(fields * i) < postion && postion - int(fields * i) >= 0)
             {
                 // std::cout << postion - int(fields * i) << " " << postion << std::endl;
-                boardSurface[postion - int(fields * i)].setFillColor(sf::Color{52, 180, 235, 100});
+                boardSurface[postion - int(fields * i)].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion - int(fields * i)] != 0)
                 {
                     boardSurface[postion - int(fields * i)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -289,7 +351,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
             if (((postion + i) % fields) > (postion % fields))
             {
                 // std::cout << (postion + i) % fields << " " << postion % fields << std::endl;
-                boardSurface[postion + i].setFillColor(sf::Color{52, 180, 235, 100});
+                boardSurface[postion + i].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion + i] != 0)
                 {
                     boardSurface[postion + i].setFillColor(sf::Color{0, 0, 0, 0});
@@ -303,74 +365,12 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
             if (((postion - i) % fields) < (postion % fields) && ((postion - i) % fields) >= 0)
             {
                 // std::cout << (postion - i) % fields << " " << postion % fields << std::endl;
-                boardSurface[postion - i].setFillColor(sf::Color{52, 180, 235, 100});
+                boardSurface[postion - i].setFillColor(sf::Color{101, 232, 65, 100});
                 if (dB[postion - i] != 0)
                 {
                     boardSurface[postion - i].setFillColor(sf::Color{0, 0, 0, 0});
                     break;
                 }
-            }
-        }
-
-        // TODO: Move Right
-        /* Move Down Right */
-        for (int i = 0; i < fields; i++)
-        {
-            if (postion + i + (i * fields) > postion && postion + i + (i * fields) < 64)
-            {
-                boardSurface[postion + i + (i * fields)].setFillColor(sf::Color{71, 53, 232, 100});
-                if (dB[postion + i + (i * fields)] != 0 || (((postion + i + (i * fields)) % fields) < (postion % fields)))
-                {
-                    boardSurface[postion + i + (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
-                    break;
-                }
-                // std::cout << (postion + i + (i * fields)) % fields << " " << postion % fields << std::endl;
-            }
-        }
-
-        // /* Move Up Right */
-        // for (int i = 0; i < fields; i++)
-        // {
-        //     if (postion + i - (i * fields) < postion && postion + i - (i * fields) >= 0)
-        //     {
-        //         boardSurface[postion + i - (i * fields)].setFillColor(sf::Color{71, 53, 232, 100});
-        //         if (dB[postion + i - (i * fields)] != 0 || (((postion + i - (i * fields)) % fields) < (postion % fields)))
-        //         {
-        //             boardSurface[postion + i - (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
-        //             break;
-        //         }
-        //         // std::cout << (postion + i - (i * fields)) % fields << " " << postion % fields << std::endl;
-        //     }
-        // }
-
-        // // TODO: Move Left
-        // /* Move Down Left */
-        // for (int i = 0; i < fields; i++)
-        // {
-        //     if (postion - i + (i * fields) > postion && postion - i + (i * fields) < 64)
-        //     {
-        //         boardSurface[postion - i + (i * fields)].setFillColor(sf::Color{71, 53, 232, 100});
-        //         if (dB[postion - i + (i * fields)] != 0 || (((postion - i + (i * fields)) % fields) > (postion % fields)))
-        //         {
-        //             boardSurface[postion - i + (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
-        //             break;
-        //         }
-        //         // std::cout << (postion - i + (i * fields)) % fields << " " << postion % fields << std::endl;
-        //     }
-        // }
-
-        /* Move Up Left */
-        for (int i = 0; i < fields; i++)
-        {
-            if (postion - i - (i * fields) < postion && postion - i - (i * fields) >= 0)
-            {
-                boardSurface[postion - i - (i * fields)].setFillColor(sf::Color{71, 53, 232, 100});
-                if (dB[postion - i - (i * fields)] != 0 || (((postion - i - (i * fields)) % fields) > (postion % fields)))
-                {
-                    boardSurface[postion - i - (i * fields)].setFillColor(sf::Color{0, 0, 0, 0});
-                    break;
-                }
-                // std::cout << (postion - i - (i * fields)) % fields << " " << postion % fields << std::endl;
             }
         }
     }
@@ -387,7 +387,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 /* Move Front */
                 if (postion + fields + (i % fields - 1) < 64)
                 {
-                    boardSurface[postion + fields + (i % fields - 1)].setFillColor(sf::Color{212, 168, 59, 100});
+                    boardSurface[postion + fields + (i % fields - 1)].setFillColor(sf::Color{101, 232, 65, 100});
                     if ((dB[postion + fields + (i % fields - 1)] != 0) || ((abs((postion % fields) - (postion + fields +(i % fields - 1)) % fields) == 7) && ((i % fields - 1) != 0)))
                     {
                         boardSurface[postion + fields + (i % fields - 1)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -397,7 +397,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 /* Move Back */
                 if (postion - fields + (i % fields - 1) >= 0)
                 {
-                    boardSurface[postion - fields + (i % fields - 1)].setFillColor(sf::Color{212, 168, 59, 100});
+                    boardSurface[postion - fields + (i % fields - 1)].setFillColor(sf::Color{101, 232, 65, 100});
                     if ((dB[postion - fields + (i % fields - 1)] != 0) || (abs((postion % fields) - (postion - fields +(i % fields - 1)) % fields) == 7 && (i % fields - 1) != 0))
                     {
                         boardSurface[postion - fields + (i % fields - 1)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -409,7 +409,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 // TODO: Move X
                 if ((i % fields - 1) != 0 && postion + (i % fields - 1) < 64)
                 {
-                    boardSurface[postion + (i % fields - 1)].setFillColor(sf::Color{212, 168, 59, 100});
+                    boardSurface[postion + (i % fields - 1)].setFillColor(sf::Color{101, 232, 65, 100});
                     if ((dB[postion + (i % fields - 1)] != 0) || ((abs((postion % fields) - ((postion + (i % fields - 1)) % fields)) == 7) || ((postion % fields) + ((postion + (i % fields - 1)) % fields)) == -1))
                     {
                         boardSurface[postion + (i % fields - 1)].setFillColor(sf::Color{0, 0, 0, 0});
@@ -434,7 +434,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                     /* Black Pawn */
                     if (moveType == -6)
                     {
-                        boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{207, 29, 61, 100});
+                        boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{101, 232, 65, 100});
                         if (dB[postion + int(fields * float(i%fields))] != 0)
                         {
                             boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{0, 0, 0, 0});
@@ -444,7 +444,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                     /* White Pawn */
                     else
                     {
-                        boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{207, 29, 61, 100});
+                        boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{101, 232, 65, 100});
                         if (dB[postion - int(fields * float(i%fields))] != 0)
                         {
                             boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{0, 0, 0, 0});
@@ -459,12 +459,12 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, bool isMove, boo
                 {
                     if ((moveType == -6) && (dB[postion + int(fields * float(i%fields))] == 0) && ((postion + int(fields * float(i%fields))) < 64))
                     {
-                        boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
+                        boardSurface[postion + int(fields * float(i%fields))].setFillColor(sf::Color{101, 232, 65, 100});
                         // std::cout << postion + int(fields * float(i%fields)) << std::endl;
                     }
                     else if ((moveType == 6) && (dB[postion - int(fields * float(i%fields))] == 0) && ((postion - int(fields * float(i%fields))) > 0))
                     {
-                        boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{212, 168, 59, 100});
+                        boardSurface[postion - int(fields * float(i%fields))].setFillColor(sf::Color{101, 232, 65, 100});
                         // std::cout << postion - int(fields * float(i%fields)) << std::endl;
                     }
                 }
