@@ -174,7 +174,14 @@ int main()
             /* Movement */
             for (int i = 0; i < count; i++)
             {
-                movement(masterBoard, enemy[i], event, mouse, defaultBoard);
+                if (!enemy[select].canAttack)
+                {
+                    movement(masterBoard, enemy[i], event, mouse, defaultBoard);
+                }
+                else
+                {
+                    movement(masterBoard, enemy[select], event, mouse, defaultBoard);
+                }
                 if (enemy[i].isMove && !enemy[select].isMove) 
                 {
                     select = i;
@@ -184,8 +191,8 @@ int main()
                     enemy[select].isMove = false;
                 }
                 masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].position, enemy[select].target, enemy[select].isMove, enemy[select].firstMove, enemy[select].canAttack);
-                attack(enemy[select], defaultBoard);
             }
+            attack(masterBoard ,enemy, event, mouse, defaultBoard, select, count);
         }
 
         /* Draw */

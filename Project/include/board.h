@@ -79,6 +79,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion + int(fields * i));
                         }
+                        canAttack = true;
                         // std::cout << dB[postion + int(fields * i)] << std::endl;
                         boardSurface[postion + int(fields * i)].setFillColor(sf::Color{237, 57, 57, 100});
                     }
@@ -88,6 +89,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion + int(fields * i));
                         }
+                        canAttack = true;
                         boardSurface[postion + int(fields * i)].setFillColor(sf::Color{237, 57, 57, 100});
                     }
                     break;
@@ -111,6 +113,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion - int(fields * i));
                         }
+                        canAttack = true;
                         // std::cout << dB[postion - int(fields * i)] << std::endl;
                         boardSurface[postion - int(fields * i)].setFillColor(sf::Color{237, 57, 57, 100});
                     }
@@ -120,6 +123,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion - int(fields * i));
                         }
+                        canAttack = true;
                         boardSurface[postion - int(fields * i)].setFillColor(sf::Color{237, 57, 57, 100});
                     }
                     break;
@@ -144,6 +148,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion + i);
                         }
+                        canAttack = true;
                         // std::cout << dB[postion + i] << std::endl;
                         boardSurface[postion + i].setFillColor(sf::Color{237, 57, 57, 100});
                     }
@@ -153,6 +158,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion + i);
                         }
+                        canAttack = true;
                         boardSurface[postion + i].setFillColor(sf::Color{237, 57, 57, 100});
                     }
                     break;
@@ -175,6 +181,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion - i);
                         }
+                        canAttack = true;
                         // std::cout << dB[postion - i] << std::endl;
                         boardSurface[postion - i].setFillColor(sf::Color{237, 57, 57, 100});
                     }
@@ -184,6 +191,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion - i);
                         }
+                        canAttack = true;
                         boardSurface[postion - i].setFillColor(sf::Color{237, 57, 57, 100});
                     }
                     break;
@@ -216,6 +224,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion + (2 * fields) + (i % fields - 1));
                                 }
+                                canAttack = true;
                                 // std::cout << dB[postion + (2 * fields) + (i % fields - 1)] << std::endl;
                                 boardSurface[postion + (2 * fields) + (i % fields - 1)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
@@ -225,6 +234,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion + (2 * fields) + (i % fields - 1));
                                 }
+                                canAttack = true;
                                 boardSurface[postion + (2 * fields) + (i % fields - 1)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
                         }
@@ -247,6 +257,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion - (2 * fields) + (i % fields - 1));
                                 }
+                                canAttack = true;
                                 // std::cout << dB[postion - (2 * fields) + (i % fields - 1)] << std::endl;
                                 boardSurface[postion - (2 * fields) + (i % fields - 1)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
@@ -256,6 +267,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion - (2 * fields) + (i % fields - 1));
                                 }
+                                canAttack = true;
                                 boardSurface[postion - (2 * fields) + (i % fields - 1)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
                         }
@@ -279,6 +291,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion + fields + ((i % fields - 1) * 2));
                                 }
+                                canAttack = true;
                                 // std::cout << dB[postion + fields + ((i % fields - 1) * 2)] << std::endl;
                                 boardSurface[postion + fields + ((i % fields - 1) * 2)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
@@ -288,6 +301,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion + fields + ((i % fields - 1) * 2));
                                 }
+                                canAttack = true;
                                 boardSurface[postion + fields + ((i % fields - 1) * 2)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
                         }
@@ -310,6 +324,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion - fields + ((i % fields - 1) * 2));
                                 }
+                                canAttack = true;
                                 // std::cout << dB[postion - fields + ((i % fields - 1) * 2)] << std::endl;
                                 boardSurface[postion - fields + ((i % fields - 1) * 2)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
@@ -319,6 +334,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion - fields + ((i % fields - 1) * 2));
                                 }
+                                canAttack = true;
                                 boardSurface[postion - fields + ((i % fields - 1) * 2)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
                         }
@@ -351,6 +367,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion + i + (i * fields));
                             }
+                            canAttack = true;
                             // std::cout << dB[postion + i + (i * fields)] << std::endl;
                             boardSurface[postion + i + (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
@@ -360,6 +377,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion + i + (i * fields));
                             }
+                            canAttack = true;
                             boardSurface[postion + i + (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
                     }
@@ -386,6 +404,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion + i - (i * fields));
                             }
+                            canAttack = true;
                             // std::cout << dB[postion + i - (i * fields)] << std::endl;
                             boardSurface[postion + i - (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
@@ -395,6 +414,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion + i - (i * fields));
                             }
+                            canAttack = true;
                             boardSurface[postion + i - (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
                     }
@@ -422,6 +442,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion - i + (i * fields));
                             }
+                            canAttack = true;
                             // std::cout << dB[postion - i + (i * fields)] << std::endl;
                             boardSurface[postion - i + (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
@@ -431,6 +452,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion - i + (i * fields));
                             }
+                            canAttack = true;
                             boardSurface[postion - i + (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
                     }
@@ -457,6 +479,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion - i - (i * fields));
                             }
+                            canAttack = true;
                             // std::cout << dB[postion - i - (i * fields)] << std::endl;
                             boardSurface[postion - i - (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
@@ -466,6 +489,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion - i - (i * fields));
                             }
+                            canAttack = true;
                             boardSurface[postion - i - (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
                     }
@@ -497,6 +521,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion + i + (i * fields));
                             }
+                            canAttack = true;
                             // std::cout << dB[postion + i + (i * fields)] << std::endl;
                             // std::cout << (postion + i + (i * fields)) % fields << " " << postion % fields << std::endl;
                             boardSurface[postion + i + (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
@@ -507,6 +532,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion + i + (i * fields));
                             }
+                            canAttack = true;
                             boardSurface[postion + i + (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
                     }
@@ -533,6 +559,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion + i - (i * fields));
                             }
+                            canAttack = true;
                             // std::cout << dB[postion + i - (i * fields)] << std::endl;
                             boardSurface[postion + i - (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
@@ -542,6 +569,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion + i - (i * fields));
                             }
+                            canAttack = true;
                             boardSurface[postion + i - (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
                     }
@@ -567,6 +595,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion - i + (i * fields));
                         }
+                        canAttack = true;
                         // std::cout << dB[postion - i + (i * fields)] << std::endl;
                         boardSurface[postion - i + (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                     }
@@ -576,6 +605,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion - i + (i * fields));
                         }
+                        canAttack = true;
                         boardSurface[postion - i + (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                     }
                     break;
@@ -601,6 +631,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion - i - (i * fields));
                             }
+                            canAttack = true;
                             // std::cout << dB[postion - i - (i * fields)] << std::endl;
                             boardSurface[postion - i - (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
@@ -610,6 +641,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion - i - (i * fields));
                             }
+                            canAttack = true;
                             boardSurface[postion - i - (i * fields)].setFillColor(sf::Color{237, 57, 57, 100});
                         }
                     }
@@ -636,6 +668,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion + int(fields * i));
                         }
+                        canAttack = true;
                         // std::cout << dB[postion + int(fields * i)] << std::endl;
                         boardSurface[postion + int(fields * i)].setFillColor(sf::Color{237, 57, 57, 100});
                     }
@@ -645,6 +678,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion + int(fields * i));
                         }
+                        canAttack = true;
                         boardSurface[postion + int(fields * i)].setFillColor(sf::Color{237, 57, 57, 100});
                     }
                     break;
@@ -668,6 +702,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion - int(fields * i));
                         }
+                        canAttack = true;
                         // std::cout << dB[postion - int(fields * i)] << std::endl;
                         boardSurface[postion - int(fields * i)].setFillColor(sf::Color{237, 57, 57, 100});
                     }
@@ -677,6 +712,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion - int(fields * i));
                         }
+                        canAttack = true;
                         boardSurface[postion - int(fields * i)].setFillColor(sf::Color{237, 57, 57, 100});
                     }
                     break;
@@ -701,6 +737,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion + i);
                         }
+                        canAttack = true;
                         // std::cout << dB[postion + i] << std::endl;
                         boardSurface[postion + i].setFillColor(sf::Color{237, 57, 57, 100});
                     }
@@ -710,6 +747,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion + i);
                         }
+                        canAttack = true;
                         boardSurface[postion + i].setFillColor(sf::Color{237, 57, 57, 100});
                     }
                     break;
@@ -732,6 +770,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion - i);
                         }
+                        canAttack = true;
                         // std::cout << dB[postion - i] << std::endl;
                         boardSurface[postion - i].setFillColor(sf::Color{237, 57, 57, 100});
                     }
@@ -741,6 +780,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                         {
                             target.push_back(postion - i);
                         }
+                        canAttack = true;
                         boardSurface[postion - i].setFillColor(sf::Color{237, 57, 57, 100});
                     }
                     break;
@@ -773,6 +813,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion + fields + (i % fields - 1));
                                 }
+                                canAttack = true;
                                 // std::cout << dB[postion + fields + (i % fields - 1)] << std::endl;
                                 boardSurface[postion + fields + (i % fields - 1)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
@@ -782,6 +823,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion + fields + (i % fields - 1));
                                 }
+                                canAttack = true;
                                 boardSurface[postion + fields + (i % fields - 1)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
                         }
@@ -804,6 +846,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion - fields + (i % fields - 1));
                                 }
+                                canAttack = true;
                                 // std::cout << dB[postion - fields + (i % fields - 1)] << std::endl;
                                 boardSurface[postion - fields + (i % fields - 1)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
@@ -813,6 +856,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion - fields + (i % fields - 1));
                                 }
+                                canAttack = true;
                                 boardSurface[postion - fields + (i % fields - 1)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
                             // std::cout << (postion - fields + (i % fields - 1)) % fields << " " << postion % fields << std::endl;
@@ -836,6 +880,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion + (i % fields - 1));
                                 }
+                                canAttack = true;
                                 // std::cout << dB[postion + (i % fields - 1)] << std::endl;
                                 boardSurface[postion + (i % fields - 1)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
@@ -845,6 +890,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion + (i % fields - 1));
                                 }
+                                canAttack = true;
                                 boardSurface[postion + (i % fields - 1)].setFillColor(sf::Color{237, 57, 57, 100});
                             }
                             // std::cout << (postion + (i % fields - 1)) % fields << " " << postion % fields << std::endl;
@@ -878,6 +924,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion + int(fields * float(i%fields)) + 1);
                                 }
+                                canAttack = true;
                                 boardSurface[postion + int(fields * float(i%fields)) + 1].setFillColor(sf::Color{237, 57, 57, 100});
                                 // std::cout << postion % fields << " " << (postion + int(fields * float(i%fields)) + 1) % fields << std::endl;
                             }
@@ -887,6 +934,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion + int(fields * float(i%fields)) - 1);
                                 }
+                                canAttack = true;
                                 boardSurface[postion + int(fields * float(i%fields)) - 1].setFillColor(sf::Color{237, 57, 57, 100});
                                 // std::cout << postion % fields << " " << (postion + int(fields * float(i%fields)) - 1) % fields << std::endl;
                             }
@@ -909,6 +957,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion - int(fields * float(i%fields)) + 1);
                                 }
+                                canAttack = true;
                                 boardSurface[postion - int(fields * float(i%fields)) + 1].setFillColor(sf::Color{237, 57, 57, 100});
                                 // std::cout << postion % fields << " " << (postion - int(fields * float(i%fields)) + 1) % fields << std::endl;
                             }
@@ -918,6 +967,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                                 {
                                     target.push_back(postion - int(fields * float(i%fields)) - 1);
                                 }
+                                canAttack = true;
                                 boardSurface[postion - int(fields * float(i%fields)) - 1].setFillColor(sf::Color{237, 57, 57, 100});
                                 // std::cout << postion % fields << " " << (postion - int(fields * float(i%fields)) - 1) % fields << std::endl;
                             }
@@ -947,6 +997,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion + int(fields * float(i%fields)) + 1);
                             }
+                            canAttack = true;
                             boardSurface[postion + int(fields * float(i%fields)) + 1].setFillColor(sf::Color{237, 57, 57, 100});
                             // std::cout << postion % fields << " " << (postion + int(fields * float(i%fields)) + 1) % fields << std::endl;
                         }
@@ -956,6 +1007,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion + int(fields * float(i%fields)) - 1);
                             }
+                            canAttack = true;
                             boardSurface[postion + int(fields * float(i%fields)) - 1].setFillColor(sf::Color{237, 57, 57, 100});
                             // std::cout << postion % fields << " " << (postion + int(fields * float(i%fields)) - 1) % fields << std::endl;
                         }
@@ -973,6 +1025,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion - int(fields * float(i%fields)) + 1);
                             }
+                            canAttack = true;
                             boardSurface[postion - int(fields * float(i%fields)) + 1].setFillColor(sf::Color{237, 57, 57, 100});
                             // std::cout << postion % fields << " " << (postion - int(fields * float(i%fields)) + 1) % fields << std::endl;
                         }
@@ -982,6 +1035,7 @@ void Board::boardHighlight(int dB[] ,int moveType, int postion, std::vector<int>
                             {
                                 target.push_back(postion - int(fields * float(i%fields)) - 1);
                             }
+                            canAttack = true;
                             boardSurface[postion - int(fields * float(i%fields)) - 1].setFillColor(sf::Color{237, 57, 57, 100});
                             // std::cout << postion % fields << " " << (postion - int(fields * float(i%fields)) - 1) % fields << std::endl;
                         }
