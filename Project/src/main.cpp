@@ -54,7 +54,7 @@ int main()
     /* Unit */
     Unit player[4], enemy[count];
     int unitChess[count];
-    int countE = 0, select = 0;
+    int countE = 0, select = -1;
     for (int i = 0; i < fields * fields; i++)
     {
         if (*(defaultBoard + i) < 0)
@@ -176,23 +176,24 @@ int main()
             {
                 if (!enemy[select].canAttack)
                 {
-                    movement(masterBoard, enemy[i], event, mouse, defaultBoard);
+                    movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count);
                 }
-                else
+                if (enemy[select].canAttack)
                 {
-                    movement(masterBoard, enemy[select], event, mouse, defaultBoard);
+                    movement(masterBoard, enemy[select], enemy, event, mouse, defaultBoard, count);
+                    // std::cout << enemy[select].isMove << std::endl;
                 }
                 if (enemy[i].isMove && !enemy[select].isMove) 
                 {
                     select = i;
                 }
-                else if (enemy[i].isMove && enemy[select].isMove && i != select)
+                if (enemy[i].isMove && enemy[select].isMove && i != select)
                 {
                     enemy[select].isMove = false;
                 }
-                masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].position, enemy[select].target, enemy[select].isMove, enemy[select].firstMove, enemy[select].canAttack);
             }
-            attack(masterBoard ,enemy, event, mouse, defaultBoard, select, count);
+            masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].position, enemy[select].target, enemy[select].isMove, enemy[select].firstMove, enemy[select].canAttack);
+            // attack(masterBoard ,enemy, event, mouse, defaultBoard, select, count);
         }
 
         /* Draw */

@@ -16,5 +16,5 @@
     <li> 01/3/66 [03:20] Phytes & P'mos : Debug Pawn jing jing na  </li>
     <li> 01/3/66 [16:36] Phytes : Debug attack highlight & สร้างเวกเตอร์ที่เก็บตัวที่สามารถโจมตีได้  </li>
     <li> 01/3/66 [18:36] P'mos & Tis & Pong & Phytes : สามารถโจมตีได้และย้ายตัวที่โดนโจมตีออกได้ แต่มี Bug หลังย้ายตำแหน่งตัวที่โจมตี </li>
-
+    <li> 02/3/66 [02:50] P'mos & Phytes : ระบบโจมตี เจอ Bug แต่แก้ละ </li>
 </ul>

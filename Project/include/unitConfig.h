@@ -6,6 +6,7 @@ class Unit
         std::string unitType;
         int moveType;
         int position;
+        bool kill = false;
         bool isMove = false;
         bool firstMove = false;
         bool canAttack = false;
