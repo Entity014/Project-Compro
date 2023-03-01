@@ -183,7 +183,8 @@ int main()
                 {
                     enemy[select].isMove = false;
                 }
-                masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].position, enemy[select].isMove, enemy[select].firstMove);
+                masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].position, enemy[select].target, enemy[select].isMove, enemy[select].firstMove, enemy[select].canAttack);
+                attack(enemy[select], defaultBoard);
             }
         }
 
@@ -206,4 +207,3 @@ int main()
 
     return 0;
 }
-

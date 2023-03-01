@@ -14,4 +14,5 @@
     <li> 28/2/66 [00:02] Phytes : Debug Queen  </li>
     <li> 01/3/66 [03:13] Phytes & P'mos : ทำระบบ highlight ตัวที่สามารถกินได้ของหมากทุกตัว เจอ Bug ของ Pawn แต่แก้แล้ว  </li>
     <li> 01/3/66 [03:20] Phytes & P'mos : Debug Pawn jing jing na  </li>
+    <li> 01/3/66 [16:36] Phytes : Debug attack highlight & สร้างเวกเตอร์ที่เก็บตัวที่สามารถโจมตีได้  </li>
 </ul>

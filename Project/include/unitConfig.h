@@ -8,7 +8,8 @@ class Unit
         int position;
         bool isMove = false;
         bool firstMove = false;
-        bool beAttack = false;
+        bool canAttack = false;
+        std::vector<int> target;
         sf::Sprite entity;
         sf::Texture texture;
         void loadTextures(const std::string);
