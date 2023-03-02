@@ -1,7 +1,7 @@
 #include "libary.h"
 
 /* Variable of display */
-const int width = 800, height = 600;
+const int width = 1440, height = 900; // 800 * 600
 const int fields = 8;
 const int tileSize = height / fields;
 const int moveRight = width - height;
@@ -10,6 +10,8 @@ const int moveRight = width - height;
 class Board
 {
     public:
+        bool isEnd = false;
+        bool whoTurn;
         sf::RectangleShape boardChess[fields * fields];
         sf::RectangleShape boardSurface[fields * fields];
         sf::Vector2f boardPositions[fields * fields];

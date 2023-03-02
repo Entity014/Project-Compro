@@ -7,11 +7,11 @@ void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vect
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
                         sf::FloatRect trackUnit = enemy.entity.getGlobalBounds();
-                        if (trackUnit.contains(mouse) && !enemy.isMove && !enemy.kill)
+                        if (trackUnit.contains(mouse) && !enemy.isMove && !enemy.kill && !mB.isEnd)
                         {
                                 enemy.isMove = true;
                                 // enemy.canAttack = false;
-                                std::cout << enemy.isMove << " " << enemy.kill << std::endl;
+                                // std::cout << enemy.isMove << " " << enemy.kill << std::endl;
                         }
                         else if (trackUnit.contains(mouse) && enemy.isMove)
                         {
@@ -31,6 +31,8 @@ void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vect
                                         enemy.canAttack = false;
                                         enemy.firstMove = true;
                                         enemy.entity.setPosition(mB.boardPositions[i]);
+                                        if (enemy.moveType > 0) mB.whoTurn = true;
+                                        else if (enemy.moveType < 0) mB.whoTurn = false;
                                         
                                         /* Default Board Update */
                                         int temp = 0;
@@ -49,7 +51,10 @@ void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vect
                                         enemy.kill = true;
                                         enemy.isMove = false;
                                         enemy.canAttack = false;
+                                        enemy.firstMove = true;
                                         enemy.entity.setPosition(mB.boardPositions[i]);
+                                        if (enemy.moveType > 0) mB.whoTurn = true;
+                                        else if (enemy.moveType < 0) mB.whoTurn = false;
                                         if (enemy.target.size() != 0)
                                         {
                                                 for (unsigned int j = 0; j < enemy.target.size(); j++)
@@ -59,7 +64,16 @@ void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vect
                                                         {
                                                                 if ((beTarget[k].position == enemy.target[j]) && (beTarget[k].position == i) && (beTarget[k].moveType != enemy.moveType))
                                                                 {
-                                                                        beTarget[k].entity.setPosition(0, 0);
+                                                                        if (beTarget[k].moveType > 0)
+                                                                        {
+                                                                                beTarget[k].entity.setPosition(0, 0);
+                                                                        }
+                                                                        else if (beTarget[k].moveType < 0)
+                                                                        {
+                                                                                beTarget[k].entity.setPosition((width - height - beTarget[k].entity.getGlobalBounds().width), 0);
+                                                                        }
+                                                                        beTarget[k].position = 99;
+                                                                        beTarget[k].isDead = true;
                                                                         // std::cout << beTarget[k].position << std::endl;
                                                                 }
                                                         }
@@ -73,6 +87,7 @@ void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vect
                                         enemy.position = i;
                                         enemy.target.clear();
                                 }
+                                
                         }
                 }
                 else
