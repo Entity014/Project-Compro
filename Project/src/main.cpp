@@ -193,7 +193,6 @@ int main()
                 }
             }
             masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].position, enemy[select].target, enemy[select].isMove, enemy[select].firstMove, enemy[select].canAttack);
-            // attack(masterBoard ,enemy, event, mouse, defaultBoard, select, count);
         }
 
         /* Draw */
