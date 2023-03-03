@@ -30,20 +30,20 @@ void Unit::loadTextures(const std::string pE)
 void Unit::entityConfig(const std::string pE, sf::Vector2f bP, sf::RectangleShape Status)
 {
     sf::Vector2f leftBottom = Status.getPosition();
-    leftBottom.y += Status.getSize().y / 1.50f;
+    leftBottom.y += Status.getSize().y / 1.70f; // 1.50f
     if (unitType == "Enemy")
     {
         // std::cout << unitType << std::endl;
         loadTextures(pE);
         entity.setTexture(texture);
-        entity.setScale(sf::Vector2f(0.65f, 0.65f)); // 0.45
+        entity.setScale(sf::Vector2f(0.45f, 0.45f)); // 0.45 || 0.65
         entity.setPosition(bP);
     }
     else if (unitType == "Player")
     {
         loadTextures(pE);
         entity.setTexture(texture);
-        entity.setScale(sf::Vector2f(0.3f, 0.3f)); // 0.25
+        entity.setScale(sf::Vector2f(0.25f, 0.25f)); // 0.25 || 0.3
         entity.setPosition(leftBottom);
     }
 }

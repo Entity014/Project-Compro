@@ -1,6 +1,7 @@
 /* SFML */
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 
 /* C++ */
 #include <iostream>

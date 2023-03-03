@@ -3,6 +3,7 @@
 #include "../include/unitConfig.h"
 #include "../include/movement.h"
 #include "../include/game.h"
+#include "../include/server.h"
 
 /* Board */
 Board masterBoard;
@@ -186,12 +187,15 @@ int main()
                     }
                     else if (hostButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer)
                     {
+                        hostServer();
                         mainWindow.close();
                         game.setVisible(true);
                     }
                     else if (joinButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer)
                     {
-                        std::cout << "Testing" << std::endl;
+                        joinServer();
+                        mainWindow.close();
+                        game.setVisible(true);
                     }
                 }
             }

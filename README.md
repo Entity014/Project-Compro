@@ -19,4 +19,5 @@
     <li> 02/3/66 [02:50] P'mos & Phytes : ระบบโจมตี เจอ Bug แต่แก้ละ </li>
     <li> 02/3/66 [11:10] Phytes : Debug for linux </li>
     <li> 02/3/66 [17:33] P'mos & Tis & Phytes : เพิ่มปุ่ม host & join หน้า main menu ตอนนี้ได้เกมหมากรุกแล้วครับ </li>
+    <li> 04/3/66 [02:22] P'mos & Phytes : Server Prototype </li>
 </ul>
