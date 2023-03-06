@@ -22,4 +22,5 @@
     <li> 04/3/66 [02:22] P'mos & Phytes : Server Prototype </li>
     <li> 05/3/66 [05:56] Phytes : ปรับปรุงหน้า main menu สำหรับ Multiplayer และ ระบบ chat room กับ server โค้ดจาก https://www.youtube.com/watch?v=yq1fAtpUW1E มีส่วนที่แก้ไขบ้างคือ เพิ่มชื่อตรงฝั่งพิมพ์และจำกัดคนเข้า chat room </li>
     <li> 06/3/66 [16:19] Phytes : ทำระบบแจ้งเตือนของ server และปรับแต่งหน้า main menu นิดหน่อย ลบ chat ออกด้วย</li>
+    <li> 06/3/66 [18:34] Phytes : สลับเทิร์นระหว่าง 2 ผู้เล่นได้</li>
 </ul>

@@ -58,14 +58,11 @@ std::string pathP[] =
 };
 
 /* Client Setting*/
-sf::TcpSocket socket;
 std::string id;
-std::string text = "";
-std::string payload = "";
 std::string inputText = "";
-std::vector<sf::Text> chat;
 std::vector<sf::Text> inputMainMenu;
 std::vector<std::string> usernameAndIp;
+char connectionType;
 
 int main()
 {
@@ -238,8 +235,9 @@ int main()
                     else if (serverButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer && !secondLayer)
                     {
                         mainWindow.close();
-                        game.close();
-                        hostServer();
+                        connectionType = 's';
+                        // hostServer();
+                        // game.setVisible(true);
                     }
                     else if (joinButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer && !secondLayer)
                     {
@@ -264,16 +262,15 @@ int main()
                     }
                     else if (connectButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer && secondLayer &&inputMainMenu.size() == 2)
                     {
-                        int d1, d2, d3, d4;
-                        id = usernameAndIp[0];
-                        sscanf(usernameAndIp[1].c_str(), "%d.%d.%d.%d", &d1, &d2, &d3, &d4);
-                        // std::cout << d1 << d2 << d3 << d4 << std::endl;
-                        // std::cout << usernameAndIp[1] << std::endl;
-                        std::cout << "Connecting..." << std::endl;
-                        joinServer(socket, id, d1, d2, d3, d4);
+                        // int d1, d2, d3, d4;
+                        // id = usernameAndIp[0];
+                        // sscanf(usernameAndIp[1].c_str(), "%d.%d.%d.%d", &d1, &d2, &d3, &d4);
+                        // // std::cout << d1 << d2 << d3 << d4 << std::endl;
+                        // // std::cout << usernameAndIp[1] << std::endl;
+                        // joinServer(d1, d2, d3, d4);
+                        connectionType = 'c';
                         mainWindow.close();
                         game.setVisible(true);
-                        std::cout << "Connected" << std::endl;
                     }
                     else if (connectButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer && secondLayer &&inputMainMenu.size() < 2)
                     {
@@ -359,7 +356,33 @@ int main()
         mainWindow.display();
     }
 
+    /* Network */
+    int preTurn = masterBoard.whoTurn;
+    if (connectionType == 's')
+    {
+        hostServer();
+        game.setVisible(true);
+    }
+    else
+    {
+        
+        int d1, d2, d3, d4;
+        id = usernameAndIp[0];
+        sscanf(usernameAndIp[1].c_str(), "%d.%d.%d.%d", &d1, &d2, &d3, &d4);
+        // std::cout << d1 << d2 << d3 << d4 << std::endl;
+        // std::cout << usernameAndIp[1] << std::endl;
+        joinServer(d1, d2, d3, d4);
+    }
+
+    char buffer[1024];
+    std::size_t received;
+    socket.receive(buffer, sizeof(buffer), received);
+    std::cout << buffer << std::endl;
+
+    sendWhoTurn(masterBoard);
+
     /* Status */
+    socket.setBlocking(false);
     srand(time(0));
     sf::RectangleShape Status(sf::Vector2f(moveRight, height));
     masterBoard.boardConfig();
@@ -448,6 +471,14 @@ int main()
 
         /* Check */
         checkWin(resultScreen, background, resultText, resetButton, resetText, masterBoard, enemy, defaultBoard, count);
+
+        /* Send Data */
+        if (preTurn != masterBoard.whoTurn)
+        {
+            sendWhoTurn(masterBoard);
+            preTurn = masterBoard.whoTurn;
+            std::cout << preTurn << std::endl;
+        }
 
         // std::cout << masterBoard.isEnd << std::endl;
         /* Game Event */
@@ -564,11 +595,19 @@ int main()
         sf::Packet packet;
         socket.receive(packet);
 
+        int tempInt;
         std::string tempText;
-        if(packet >> tempText)
+        if(packet >> tempText >> tempInt)
         {
-            std::cout << tempText << std::endl;
+            // std::cout << tempText << tempInt << std::endl;
+            if (tempText == "Who")
+            {
+                std::cout << tempInt << " " << masterBoard.whoTurn << std::endl;
+                masterBoard.whoTurn = tempInt;
+                preTurn = tempInt;
+            }
         }
+        // std::cout << masterBoard.whoTurn << " " << tempInt << std::endl;
 
         /* Render Screen */
         game.clear();
