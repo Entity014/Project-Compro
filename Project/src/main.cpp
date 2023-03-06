@@ -357,7 +357,8 @@ int main()
     }
 
     /* Network */
-    int preTurn = masterBoard.whoTurn;
+    int preTurn = masterBoard.whoTurn, preSelect, prePosition, preDead;
+    bool serverReset = false;
     if (connectionType == 's')
     {
         hostServer();
@@ -365,7 +366,6 @@ int main()
     }
     else
     {
-        
         int d1, d2, d3, d4;
         id = usernameAndIp[0];
         sscanf(usernameAndIp[1].c_str(), "%d.%d.%d.%d", &d1, &d2, &d3, &d4);
@@ -463,6 +463,7 @@ int main()
     resultText.setFillColor(sf::Color{0, 0, 0, 0});
     isTurnText.setFillColor(sf::Color{0, 0, 0, 0});
 
+    std::vector<int> deadStack;
     while (game.isOpen())
     {
         countE = 0;
@@ -477,7 +478,33 @@ int main()
         {
             sendWhoTurn(masterBoard);
             preTurn = masterBoard.whoTurn;
-            std::cout << preTurn << std::endl;
+            // std::cout << preTurn << std::endl;
+        }
+        if (((preSelect != select) || (prePosition != enemy[select].position)) && (select != -1))
+        {
+            sendMove(select, enemy[select].position);
+            preSelect = select;
+            prePosition = enemy[select].position;
+            // std::cout << select << " " << enemy[select].position << std::endl;
+            // std::cout << preSelect << " " << prePosition << std::endl;
+        }
+        for (int i = 0; i < count; i++)
+        {
+            if (enemy[i].isDead)
+            {
+                if (std::count(deadStack.begin(), deadStack.end(), i) < 1)
+                {
+                    deadStack.push_back(i);
+                }
+                // std::cout << std::count(deadStack.begin(), deadStack.end(), i)  << std::endl;
+                // sendDead(i);
+                if (preDead != deadStack.size())
+                {
+                    sendDead(i);
+                    // std::cout << i << " " << deadStack.size() << " " << preDead << std::endl;
+                    preDead = deadStack.size();
+                }
+            }
         }
 
         // std::cout << masterBoard.isEnd << std::endl;
@@ -489,6 +516,7 @@ int main()
                 game.close();
             }
 
+                            std::cout << serverReset << std::endl;
             /* Reset Button */
             if (masterBoard.isEnd)
             {
@@ -496,7 +524,7 @@ int main()
                 {
                     if (event.mouseButton.button == sf::Mouse::Left)
                     {
-                        if (resetButton.getGlobalBounds().contains(mouse))
+                        if ((resetButton.getGlobalBounds().contains(mouse)) || (serverReset))
                         {
                             // std::cout << "Reset button pressed" << std::endl;
                             for (int j = 0; j < fields * fields; j++)
@@ -506,6 +534,7 @@ int main()
                                 {
                                     // std::cout << enemy[dummy].moveType << std::endl;
                                     // std::cout << masterBoard.boardPositions[j].x << " " << masterBoard.boardPositions[j].y << " " << j << std::endl;
+
                                     /* Screen */
                                     resultScreen.setFillColor(sf::Color{0, 0, 0, 0});
                                     resultText.setFillColor(sf::Color{0, 0, 0, 0});
@@ -524,6 +553,10 @@ int main()
                                     masterBoard.isEnd = false;
                                     masterBoard.whoTurn = rand()%2;
                                     countE++;
+                                    
+                                    /* Server */
+                                    serverReset = false;
+                                    sendReset();
                                 }
                             }
                             countE = 0;
@@ -589,25 +622,49 @@ int main()
         }
         
 
-        // showDefualtBoard(defaultBoard);
 
         /* Client Receive*/
         sf::Packet packet;
         socket.receive(packet);
 
-        int tempInt;
+        int tempInt1, tempInt2;
         std::string tempText;
-        if(packet >> tempText >> tempInt)
+        if(packet >> tempText >> tempInt1 >> tempInt2)
         {
-            // std::cout << tempText << tempInt << std::endl;
+            // std::cout << tempText << " " << tempInt1 << " " << tempInt2 << std::endl;
             if (tempText == "Who")
             {
-                std::cout << tempInt << " " << masterBoard.whoTurn << std::endl;
-                masterBoard.whoTurn = tempInt;
-                preTurn = tempInt;
+                // std::cout << tempInt << " " << masterBoard.whoTurn << std::endl;
+                masterBoard.whoTurn = tempInt1;
+                preTurn = tempInt1;
+            }
+            if (tempText == "Move")
+            {
+                int temp = 0;
+                select = tempInt1;
+                defaultBoard[enemy[select].position] = temp;
+                defaultBoard[tempInt2] = enemy[select].moveType;
+                enemy[select].position = tempInt2;
+                enemy[select].entity.setPosition(masterBoard.boardPositions[tempInt2]);
+                preSelect = tempInt1;
+                prePosition = tempInt2;
+                // std::cout << select << " " << enemy[select].position << std::endl;
+            }
+            if (tempText == "Dead")
+            {
+                // std::cout << tempText << " " << tempInt1 << " " << tempInt2 << std::endl;
+                enemy[tempInt1].isDead = true;
+                enemy[tempInt1].entity.setPosition(0, 0);
+            }
+            if (tempText == "Reset")
+            {
+                // std::cout << tempText << std::endl; 
+                serverReset = true;
             }
         }
         // std::cout << masterBoard.whoTurn << " " << tempInt << std::endl;
+
+        // showDefualtBoard(defaultBoard);
 
         /* Render Screen */
         game.clear();

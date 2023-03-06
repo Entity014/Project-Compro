@@ -4,6 +4,7 @@ sf::TcpSocket socket;
 
 void hostServer()
 {
+    std::cout << "your server ip : " << sf::IpAddress::getLocalAddress() << std::endl;
     char connectionType;
     char buffer[1024];
     std::size_t received;
@@ -39,6 +40,27 @@ void sendWhoTurn(Board masterBoard)
 {
     sf::Packet packet;
     // std::string text = "test";
-    packet << "Who" << masterBoard.whoTurn;
+    packet << "Who" << masterBoard.whoTurn << 0;
+    socket.send(packet);
+}
+
+void sendMove(int select, int position)
+{
+    sf::Packet packet;
+    packet << "Move" << select << position;
+    socket.send(packet);
+}
+
+void sendDead(int who)
+{
+    sf::Packet packet;
+    packet << "Dead" << who << 0;
+    socket.send(packet);
+}
+
+void sendReset()
+{
+    sf::Packet packet;
+    packet << "Reset" << 0 << 0;
     socket.send(packet);
 }
