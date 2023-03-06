@@ -61,6 +61,7 @@ std::string pathP[] =
 sf::TcpSocket socket;
 std::string id;
 std::string text = "";
+std::string payload = "";
 std::string inputText = "";
 std::vector<sf::Text> chat;
 std::vector<sf::Text> inputMainMenu;
@@ -73,9 +74,7 @@ int main()
     bool secondLayer = false;
     sf::RenderWindow mainWindow(sf::VideoMode(width, height), "Main Window");
     sf::RenderWindow game(sf::VideoMode(width, height), "Chess Mae");
-    sf::RenderWindow chatWindow(sf::VideoMode(width, height), "Chat Window");
     game.setVisible(false);
-    chatWindow.setVisible(false);
     
     sf::Font font;
     if (!font.loadFromFile("asset/font/arial.TTF"))
@@ -132,9 +131,11 @@ int main()
     sf::Text connectText("Connect", font, 30);
     connectText.setFillColor(sf::Color{0, 0, 0, 0});
     connectText.setPosition(connectButton.getPosition().x + connectButton.getSize().x / 2 - connectText.getGlobalBounds().width / 2, connectButton.getPosition().y + connectButton.getSize().y / 2 - connectText.getGlobalBounds().height / 2);
+    
     sf::Text guideText1("Enter to comfirm", font, 30);
     guideText1.setFillColor(sf::Color{0, 0, 0, 0});
     guideText1.setPosition(mainWindow.getSize().x / 2 - guideText1.getGlobalBounds().width / 2, 550);
+    sf::Text drawInputText(inputText, font, 30);
 
     sf::RectangleShape usernameBox(sf::Vector2f(300,50));
     usernameBox.setFillColor(sf::Color{0, 0, 0, 0});
@@ -158,7 +159,6 @@ int main()
             if (event.type == sf::Event::Closed)
             {
                 mainWindow.close();
-                chatWindow.close();
                 game.close();
             }
 
@@ -185,6 +185,7 @@ int main()
                     }
                     else if (backButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && secondLayer)
                     {
+                        inputText = "";
                         inputMainMenu.clear();
                         /* Position */
                         quitButton.setPosition(quitButton.getPosition().x + 200, quitButton.getPosition().y);
@@ -193,6 +194,11 @@ int main()
                         backText.setPosition(backText.getPosition().x + 200, backText.getPosition().y - 25);
 
                         /* Color */
+                        drawInputText.setFillColor(sf::Color{0, 0, 0, 0});
+                        for (int i = 0; i < inputMainMenu.size(); i++)
+                        {
+                            inputMainMenu[i].setFillColor(sf::Color{0, 0, 0, 0});
+                        }
                         guideText1.setFillColor(sf::Color{0, 0, 0, 0});
                         usernameBox.setFillColor(sf::Color{0, 0, 0, 0});
                         usernameText.setFillColor(sf::Color{0, 0, 0, 0});
@@ -227,13 +233,11 @@ int main()
                     else if (quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
                     {
                         mainWindow.close();
-                        chatWindow.close();
                         game.close();
                     }
                     else if (serverButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer && !secondLayer)
                     {
                         mainWindow.close();
-                        chatWindow.close();
                         game.close();
                         hostServer();
                     }
@@ -255,20 +259,25 @@ int main()
                         ipAddressText.setFillColor(sf::Color::White);
                         connectButton.setFillColor(sf::Color::Black);
                         connectText.setFillColor(sf::Color::White);
-                        guideText1.setFillColor(sf::Color::Red);
+                        drawInputText.setFillColor(sf::Color::Red);
                         secondLayer = true;
                     }
-                    else if (connectButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer && secondLayer)
+                    else if (connectButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer && secondLayer &&inputMainMenu.size() == 2)
                     {
                         int d1, d2, d3, d4;
                         id = usernameAndIp[0];
                         sscanf(usernameAndIp[1].c_str(), "%d.%d.%d.%d", &d1, &d2, &d3, &d4);
                         // std::cout << d1 << d2 << d3 << d4 << std::endl;
                         // std::cout << usernameAndIp[1] << std::endl;
+                        std::cout << "Connecting..." << std::endl;
                         joinServer(socket, id, d1, d2, d3, d4);
                         mainWindow.close();
-                        chatWindow.setVisible(true);
                         game.setVisible(true);
+                        std::cout << "Connected" << std::endl;
+                    }
+                    else if (connectButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer && secondLayer &&inputMainMenu.size() < 2)
+                    {
+                        guideText1.setFillColor(sf::Color::Red);
                     }
                 }
             }
@@ -336,9 +345,7 @@ int main()
             mainWindow.draw(inputMainMenu[dummyX]);
         }
 
-        sf::Text drawInputText(inputText, font, 30);
         drawInputText.setString(inputText);
-        drawInputText.setFillColor(sf::Color::Red);
         if (dummyX == 0)
         {
             drawInputText.setPosition(usernameBox.getPosition().x + usernameBox.getSize().x / 2 - drawInputText.getGlobalBounds().width / 2, usernameBox.getPosition().y + usernameBox.getSize().y / 2 - drawInputText.getGlobalBounds().height / 2);
@@ -433,7 +440,7 @@ int main()
     resultText.setFillColor(sf::Color{0, 0, 0, 0});
     isTurnText.setFillColor(sf::Color{0, 0, 0, 0});
 
-    while (game.isOpen() || chatWindow.isOpen())
+    while (game.isOpen())
     {
         countE = 0;
         sf::Event event;
@@ -448,7 +455,6 @@ int main()
         {
             if (event.type == sf::Event::Closed)
             {
-                chatWindow.close();
                 game.close();
             }
 
@@ -502,14 +508,14 @@ int main()
             {
                 if (!enemy[select].canAttack)
                 {
-                    if (!masterBoard.whoTurn && enemy[i].moveType > 0)
+                    if (masterBoard.whoTurn == 0 && enemy[i].moveType > 0)
                     {
                         movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count);
                         isTurnText.setString("White's Turn");
                         isTurnText.setFillColor(sf::Color::Black);
                         isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
                     }
-                    else if (masterBoard.whoTurn && enemy[i].moveType < 0)
+                    else if (masterBoard.whoTurn == 1 && enemy[i].moveType < 0)
                     {
                         movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count);
                         isTurnText.setString("Black's Turn");
@@ -522,14 +528,14 @@ int main()
                     if (enemy[select].canAttack)
                     {
                         // std::cout << enemy[select].canAttack << std::endl;
-                        if (!masterBoard.whoTurn && enemy[i].moveType > 0)
+                        if (masterBoard.whoTurn == 0 && enemy[i].moveType > 0)
                         {
                             movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count);
                             isTurnText.setString("White's Turn");
                             isTurnText.setFillColor(sf::Color::Black);
                             isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
                         }
-                        else if (masterBoard.whoTurn && enemy[i].moveType < 0)
+                        else if (masterBoard.whoTurn == 1 && enemy[i].moveType < 0)
                         {
                             movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count);
                             isTurnText.setString("White's Turn");
@@ -550,36 +556,6 @@ int main()
             }
             masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].position, enemy[select].target, enemy[select].isMove, enemy[select].firstMove, enemy[select].canAttack);
         }
-
-        /* Chat Event */
-        while (chatWindow.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                chatWindow.close();
-            }
-            /* Chat */
-            if (event.type == sf::Event::KeyPressed)
-            {
-                if (event.key.code == sf::Keyboard::Return)
-                {
-                    sf::Packet packet;
-                    packet << id + ": " + text;
-                    socket.send(packet);
-                    sf::Text displayText(text, font, 20);
-                    displayText.setString(id + ": " + text);
-                    displayText.setFillColor(sf::Color::Red);
-                    chat.push_back(displayText);
-                    text = "";
-                }
-            }
-
-            if (event.type == sf::Event::TextEntered)
-            {
-                if (int(event.text.unicode) != 8) text += event.text.unicode;
-                else if (int(event.text.unicode) == 8 && text.size() > 0) text.pop_back();
-            }
-        }
         
 
         // showDefualtBoard(defaultBoard);
@@ -589,41 +565,13 @@ int main()
         socket.receive(packet);
 
         std::string tempText;
-        char titleText[1024];
-        char username[100];
         if(packet >> tempText)
         {
-            // sscanf(tempText.c_str(), "%[^:]: %[^:]", username, titleText);
-            // std::cout << username << " " << titleText << std::endl;
-            sf::Text displayText(tempText, font, 20);
-            displayText.setFillColor(sf::Color::Blue);
-            // std::cout << tempText << std::endl;
-            chat.push_back(displayText);
+            std::cout << tempText << std::endl;
         }
 
         /* Render Screen */
         game.clear();
-        chatWindow.clear();
-
-        /* Render Chat */
-        int dummy = 0;
-        for (dummy; dummy < chat.size(); dummy++)
-        {
-            chat[dummy].setPosition(0, dummy * 20);
-            chatWindow.draw(chat[dummy]);
-        }
-
-        sf::Text drawText(text, font, 20);
-        drawText.setString(id + ": " + text);
-        drawText.setFillColor(sf::Color::Red);
-        drawText.setPosition(0, dummy * 20);
-        chatWindow.draw(drawText);
-
-        if (dummy *  20 >= height)
-        {
-            chat.clear();
-            dummy = 0;
-        }
 
         /* Render Game */
         game.draw(Status);
@@ -646,7 +594,6 @@ int main()
         game.draw(resetText);
         // game.draw(boundingBoxShape);
         game.display();
-        chatWindow.display();
     }
 
     return 0;

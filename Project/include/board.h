@@ -11,7 +11,7 @@ class Board
 {
     public:
         bool isEnd = false;
-        bool whoTurn;
+        int whoTurn = 0;
         sf::RectangleShape boardChess[fields * fields];
         sf::RectangleShape boardSurface[fields * fields];
         sf::Vector2f boardPositions[fields * fields];

@@ -2,16 +2,18 @@
 
 void hostServer()
 {
+    std::cout << "your server ip : " << sf::IpAddress::getLocalAddress() << std::endl;
     std::cout << "Server Running" << std::endl;
     sf::TcpListener listener;
     sf::SocketSelector selector;
-    bool done = false;
     std::vector<sf::TcpSocket*> clients;
+    std::string id;
     
     listener.listen(2000);
     selector.add(listener);
-    while (!done)
+    while (true)
     {
+        // std::cout << clients.size() << std::endl;
         if (selector.wait())
         {
             if (selector.isReady(listener) && clients.size() < 4)
@@ -19,7 +21,6 @@ void hostServer()
                 sf::TcpSocket *socket = new sf::TcpSocket;
                 listener.accept(*socket);
                 sf::Packet packet;
-                std::string id;
                 if (socket->receive(packet) == sf::Socket::Done) packet >> id;
                 
                 std::cout << "[ " << clients.size() + 1 << " / 4 ] ";
@@ -47,6 +48,14 @@ void hostServer()
                                 }
                             }
                         }
+                        else
+                        {
+                            selector.remove(*clients[i]);
+                            delete clients[i];
+                            clients.erase(clients.begin() + i);
+                            std::cout << "[ " << clients.size() << " / 4 ] ";
+                            std::cout << id << " has disconnected to the chat room" << std::endl;
+                        }
                     }
                 }
             }
@@ -70,3 +79,19 @@ void joinServer(sf::TcpSocket &socket, std::string &id, int ipAddr1, int ipAddr2
     socket.send(packet);
     socket.setBlocking(false);
 }
+
+void sendMoveSidePayload(sf::TcpSocket &socket, std::string id, std::string &payload)
+{
+    sf::Packet packet;
+    packet << "M," + id + ": "  + "S " + payload;
+    socket.send(packet);
+    payload = "";
+}
+
+// void selectHost(sf::TcpSocket &socket, std::string id, std::string &payload)
+// {
+//     sf::Packet packet;
+//     packet << "M," + id + ": "  + "H" + payload;
+//     socket.send(packet);
+//     payload = "";
+// }

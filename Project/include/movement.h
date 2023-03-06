@@ -31,8 +31,8 @@ void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vect
                                         enemy.canAttack = false;
                                         enemy.firstMove = true;
                                         enemy.entity.setPosition(mB.boardPositions[i]);
-                                        if (enemy.moveType > 0) mB.whoTurn = true;
-                                        else if (enemy.moveType < 0) mB.whoTurn = false;
+                                        if (enemy.moveType > 0) mB.whoTurn = 1;
+                                        else if (enemy.moveType < 0) mB.whoTurn = 0;
                                         
                                         /* Default Board Update */
                                         int temp = 0;
@@ -53,8 +53,8 @@ void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vect
                                         enemy.canAttack = false;
                                         enemy.firstMove = true;
                                         enemy.entity.setPosition(mB.boardPositions[i]);
-                                        if (enemy.moveType > 0) mB.whoTurn = true;
-                                        else if (enemy.moveType < 0) mB.whoTurn = false;
+                                        if (enemy.moveType > 0) mB.whoTurn = 1;
+                                        else if (enemy.moveType < 0) mB.whoTurn = 0;
                                         if (enemy.target.size() != 0)
                                         {
                                                 for (unsigned int j = 0; j < enemy.target.size(); j++)
