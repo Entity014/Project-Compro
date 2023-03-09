@@ -31,3 +31,16 @@ void checkWin(sf::RectangleShape &result, sf::RectangleShape &bg, sf::Text &text
         }
     }
 }
+
+void loadsound(std::vector<sf::Sound> &soundVector ,std::vector<std::string> pathSound)
+{
+    for(int i = 0 ; i < pathSound.size() ; i++)
+    {
+
+        sf::Sound sound ;
+        sf::SoundBuffer bufferX;
+        bufferX.loadFromFile(pathSound[i]);
+        sound.setBuffer(bufferX);
+        soundVector.push_back(sound);
+    }
+}

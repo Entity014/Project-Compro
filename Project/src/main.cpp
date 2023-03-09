@@ -487,7 +487,24 @@ int main()
     roundText.setFillColor(sf::Color::Black);
     roundText.setPosition(roundScreen.getPosition().x + roundScreen.getSize().x / 2 - roundText.getGlobalBounds().width / 2, roundScreen.getPosition().y + roundScreen.getSize().y / 2 - roundText.getGlobalBounds().height);
     
+    /* Sound and Music */
+    std::vector<sf::Sound> soundVector;
+    std::vector<sf::Music> music ;
+    std::vector<std::string> pathMusic = {} ;
+    std::vector<std::string> pathSound = {"asset/sound/wanjeab.wav"} ;
+
     std::vector<int> deadStack;
+
+    for(int i = 0 ; i < pathSound.size() ; i++)
+    {
+        sf::Sound sound;
+        sf::SoundBuffer bufferX;
+        bufferX.loadFromFile(pathSound[i]);
+        sound.setBuffer(bufferX);
+        soundVector.push_back(sound);
+    }
+    std::cout << soundVector.size();
+    if(soundVector.size() != 0) soundVector[0].play();
     while (game.isOpen())
     {
         countE = 0;
