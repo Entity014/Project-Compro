@@ -11,6 +11,7 @@ class Unit
         bool firstMove = false;
         bool canAttack = false;
         bool isDead = false;
+        bool lastMan = false;
         std::vector<int> target;
         sf::Sprite entity;
         sf::Texture texture;

@@ -1,13 +1,14 @@
 #include "libary.h"
 
-void checkWin(sf::RectangleShape &result, sf::RectangleShape &bg, sf::Text &text, sf::RectangleShape &resetB, sf::Text &resetT, Board &mB, Unit enemy[], int dB[], int count)
+void checkWin(sf::RectangleShape &result, sf::RectangleShape &bg, sf::Text &text, sf::RectangleShape &resetB, sf::Text &resetT, Board &mB, Unit enemy[], int dB[], int count, int Pturn)
 {
     for (int i = 0; i < count; i++)
     {
         if (enemy[i].isDead && enemy[i].moveType == -5)
         {
             mB.isEnd = true;
-            text.setString("White win");
+            if (Pturn == 0) text.setString("You Win!");
+            else text.setString("You Lose!");
             text.setPosition(result.getPosition().x + result.getSize().x / 2 - text.getGlobalBounds().width / 2, result.getPosition().y + result.getSize().y / 2 - text.getGlobalBounds().height);
             result.setFillColor(sf::Color{7, 242, 129, 255});
             resetB.setFillColor(sf::Color{7, 242, 129, 255});
@@ -20,7 +21,8 @@ void checkWin(sf::RectangleShape &result, sf::RectangleShape &bg, sf::Text &text
         else if (enemy[i].isDead && enemy[i].moveType == 5)
         {
             mB.isEnd = true;
-            text.setString("Black win");
+            if (Pturn == 0) text.setString("You Lose!");
+            else text.setString("You Win!");
             text.setPosition(result.getPosition().x + result.getSize().x / 2 - text.getGlobalBounds().width / 2, result.getPosition().y + result.getSize().y / 2 - text.getGlobalBounds().height);
             result.setFillColor(sf::Color{7, 242, 129, 255});
             resetB.setFillColor(sf::Color{7, 242, 129, 255});
@@ -32,15 +34,18 @@ void checkWin(sf::RectangleShape &result, sf::RectangleShape &bg, sf::Text &text
     }
 }
 
-void loadsound(std::vector<sf::Sound> &soundVector ,std::vector<std::string> pathSound)
+void loadSound(std::vector<sf::Sound> &soundVector, std::vector<sf::SoundBuffer> &soundBufferVector, std::vector<std::string> pathSound)
 {
-    for(int i = 0 ; i < pathSound.size() ; i++)
+    for (int i = 0; i < pathSound.size(); i++)
     {
-
-        sf::Sound sound ;
         sf::SoundBuffer bufferX;
         bufferX.loadFromFile(pathSound[i]);
-        sound.setBuffer(bufferX);
+        soundBufferVector.push_back(bufferX);
+    }
+    for (int i = 0; i < soundBufferVector.size(); i++)
+    {
+        sf::Sound sound;
+        sound.setBuffer(soundBufferVector[i]);
         soundVector.push_back(sound);
     }
 }
