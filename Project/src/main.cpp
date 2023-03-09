@@ -357,7 +357,7 @@ int main()
     }
 
     /* Network */
-    int preTurn = masterBoard.whoTurn, preSelect, prePosition, preDead;
+    int preTurn = masterBoard.whoTurn, preSelect, prePosition, preDead, preTurnCount;
     bool serverReset = false;
     if (connectionType == 's')
     {
@@ -378,7 +378,15 @@ int main()
     std::size_t received;
     socket.receive(buffer, sizeof(buffer), received);
     std::cout << buffer << std::endl;
-
+    
+    char connectedTo[64];
+    char serverClient[32];
+    sscanf(buffer,"%[^:]: %s",connectedTo,serverClient);
+    int Pturn;
+    std::string tServerClient(serverClient);
+    if(tServerClient == "Server"  ) Pturn = 0;
+    else Pturn = 1 ;
+    // std::cout << Pturn;
     sendWhoTurn(masterBoard);
 
     /* Status */
@@ -388,6 +396,7 @@ int main()
     masterBoard.boardConfig();
     defaultBoardCheck(defaultBoard, fields * fields, count);
     masterBoard.whoTurn = rand()%2;
+    int turnCount = 0;
 
     /* Unit */
     Unit player[4], enemy[count];
@@ -446,29 +455,46 @@ int main()
     sf::RectangleShape isTurnScreen(sf::Vector2f(250, 50)); // 250 * 50
     sf::RectangleShape background(sf::Vector2f(width, height));
     sf::RectangleShape resultScreen(sf::Vector2f(width - 440 , 200)); // 1000 * 200
+    sf::RectangleShape whoScreen(sf::Vector2f(Status.getGlobalBounds().width, 50));
+    sf::RectangleShape roundScreen(sf::Vector2f(Status.getGlobalBounds().width, 50));
 
     /* Position */
-    isTurnScreen.setPosition(Status.getSize().x / 2 - isTurnScreen.getSize().x / 2, 200); // 700
+    isTurnScreen.setPosition(Status.getSize().x * 2.5 / 4 - isTurnScreen.getSize().x / 2, 650); // 700
     resultScreen.setPosition(game.getSize().x / 2 - resultScreen.getSize().x / 2, game.getSize().y / 2 - resultScreen.getSize().y / 2);
     background.setPosition(sf::Vector2f(0.0f, 0.0f));
+    whoScreen.setPosition(sf::Vector2f(0.0f, 0.0f));
+    roundScreen.setPosition(sf::Vector2f(0.0f, 100.0f));
 
     /* Color */
     isTurnScreen.setFillColor(sf::Color{7, 242, 129, 255});
+    whoScreen.setFillColor(sf::Color{7, 242, 129, 255});
+    roundScreen.setFillColor(sf::Color{7, 242, 129, 255});
     resultScreen.setFillColor(sf::Color{0, 0, 0, 0});
     background.setFillColor(sf::Color{0, 0, 0, 0});
+    
 
     /* Text */
     sf::Text isTurnText("Turn Test", font, 30);
     sf::Text resultText("result Test", font, 200);
+    sf::Text whoText("You are Test", font, 30);
+    sf::Text roundText("Round : Test ", font, 30);
     resultText.setFillColor(sf::Color{0, 0, 0, 0});
     isTurnText.setFillColor(sf::Color{0, 0, 0, 0});
-
+    whoText.setFillColor(sf::Color::Black);
+    whoText.setPosition(whoScreen.getPosition().x + whoScreen.getSize().x / 2 - whoText.getGlobalBounds().width / 2, whoScreen.getPosition().y + whoScreen.getSize().y / 2 - whoText.getGlobalBounds().height);
+    if(Pturn == 0) whoText.setString("You are White");
+    else whoText.setString("You are Black");
+    roundText.setFillColor(sf::Color::Black);
+    roundText.setPosition(roundScreen.getPosition().x + roundScreen.getSize().x / 2 - roundText.getGlobalBounds().width / 2, roundScreen.getPosition().y + roundScreen.getSize().y / 2 - roundText.getGlobalBounds().height);
+    
     std::vector<int> deadStack;
     while (game.isOpen())
     {
         countE = 0;
         sf::Event event;
         sf::Vector2f mouse = game.mapPixelToCoords(sf::Mouse::getPosition(game));
+        // std::cout << turnCount << std::endl;
+        roundText.setString("Round : " + std::to_string(turnCount));
 
         /* Check */
         checkWin(resultScreen, background, resultText, resetButton, resetText, masterBoard, enemy, defaultBoard, count);
@@ -487,6 +513,11 @@ int main()
             prePosition = enemy[select].position;
             // std::cout << select << " " << enemy[select].position << std::endl;
             // std::cout << preSelect << " " << prePosition << std::endl;
+        }
+        if(preTurnCount != turnCount)
+        {
+            sendTurnCount(turnCount);
+            preTurnCount = turnCount;
         }
         for (int i = 0; i < count; i++)
         {
@@ -516,7 +547,7 @@ int main()
                 game.close();
             }
 
-                            std::cout << serverReset << std::endl;
+                            //std::cout << serverReset << std::endl;
             /* Reset Button */
             if (masterBoard.isEnd)
             {
@@ -555,6 +586,7 @@ int main()
                                     countE++;
                                     
                                     /* Server */
+                                    turnCount = 0 ;
                                     serverReset = false;
                                     sendReset();
                                 }
@@ -569,19 +601,19 @@ int main()
             /* Movement */
             // std::cout << enemy[select].isMove << std::endl;
             for (int i = 0; i < count; i++)
-            {
+            {   
                 if (!enemy[select].canAttack)
                 {
                     if (masterBoard.whoTurn == 0 && enemy[i].moveType > 0)
                     {
-                        movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count);
+                        if(Pturn == masterBoard.whoTurn) movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
                         isTurnText.setString("White's Turn");
                         isTurnText.setFillColor(sf::Color::Black);
                         isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
                     }
                     else if (masterBoard.whoTurn == 1 && enemy[i].moveType < 0)
                     {
-                        movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count);
+                        if(Pturn == masterBoard.whoTurn) movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
                         isTurnText.setString("Black's Turn");
                         isTurnText.setFillColor(sf::Color::Black);
                         isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
@@ -594,14 +626,14 @@ int main()
                         // std::cout << enemy[select].canAttack << std::endl;
                         if (masterBoard.whoTurn == 0 && enemy[i].moveType > 0)
                         {
-                            movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count);
+                            if(Pturn == masterBoard.whoTurn) movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
                             isTurnText.setString("White's Turn");
                             isTurnText.setFillColor(sf::Color::Black);
                             isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
                         }
                         else if (masterBoard.whoTurn == 1 && enemy[i].moveType < 0)
                         {
-                            movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count);
+                            if(Pturn == masterBoard.whoTurn)movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
                             isTurnText.setString("White's Turn");
                             isTurnText.setFillColor(sf::Color::Black);
                             isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
@@ -654,12 +686,17 @@ int main()
             {
                 // std::cout << tempText << " " << tempInt1 << " " << tempInt2 << std::endl;
                 enemy[tempInt1].isDead = true;
-                enemy[tempInt1].entity.setPosition(0, 0);
+                enemy[tempInt1].entity.setPosition(-100, -100);
             }
             if (tempText == "Reset")
             {
                 // std::cout << tempText << std::endl; 
                 serverReset = true;
+            }
+            if (tempText == "turnCount")
+            {
+                turnCount = tempInt1;
+                std::cout << tempInt1 << " " << turnCount << std::endl ;
             }
         }
         // std::cout << masterBoard.whoTurn << " " << tempInt << std::endl;
@@ -684,6 +721,10 @@ int main()
         game.draw(isTurnScreen);
         game.draw(isTurnText);
         game.draw(background);
+        game.draw(roundScreen);
+        game.draw(roundText);
+        game.draw(whoScreen);
+        game.draw(whoText);
         game.draw(resultScreen);
         game.draw(resultText);
         game.draw(resetButton);

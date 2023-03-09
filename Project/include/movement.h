@@ -1,5 +1,5 @@
 #include "libary.h"
-void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vector2f mouse, int dB[], int count)
+void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vector2f mouse, int dB[], int count , int &turnCount)
 {
         /* Check Click and move */
         if (event.type == sf::Event::MouseButtonPressed)
@@ -42,6 +42,7 @@ void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vect
                                         enemy.target.clear();
                                         // std::cout << enemy.moveType << " " << i << std::endl;
                                         // std::cout << int(mB.boardSurface[i].getFillColor().r) << std::endl;
+                                        turnCount++;
                                         break;
                                 }
                                 /* Attack */
@@ -63,15 +64,8 @@ void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vect
                                                         for (int k = 0; k < count; k++)
                                                         {
                                                                 if ((beTarget[k].position == enemy.target[j]) && (beTarget[k].position == i) && (beTarget[k].moveType != enemy.moveType))
-                                                                {
-                                                                        if (beTarget[k].moveType > 0)
-                                                                        {
-                                                                                beTarget[k].entity.setPosition(0, 0);
-                                                                        }
-                                                                        else if (beTarget[k].moveType < 0)
-                                                                        {
-                                                                                beTarget[k].entity.setPosition((width - height - beTarget[k].entity.getGlobalBounds().width), 0);
-                                                                        }
+                                                                {       
+                                                                        beTarget[k].entity.setPosition(-100 , -100);
                                                                         beTarget[k].position = 99;
                                                                         beTarget[k].isDead = true;
                                                                         // std::cout << beTarget[k].position << std::endl;
@@ -86,6 +80,8 @@ void movement(Board &mB, Unit &enemy, Unit beTarget[], sf::Event event, sf::Vect
                                         dB[i] = enemy.moveType;
                                         enemy.position = i;
                                         enemy.target.clear();
+                                        
+                                        turnCount++;
                                 }
                                 
                         }

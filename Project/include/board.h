@@ -1,7 +1,7 @@
 #include "libary.h"
 
 /* Variable of display */
-const int width = 800, height = 600; // 800 * 600 || 1440 * 900
+const int width = 1440, height = 900; // 800 * 600 || 1440 * 900
 const int fields = 8;
 const int tileSize = height / fields;
 const int moveRight = width - height;

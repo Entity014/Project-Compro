@@ -6,8 +6,6 @@ void hostServer()
 {
     std::cout << "your server ip : " << sf::IpAddress::getLocalAddress() << std::endl;
     char connectionType;
-    char buffer[1024];
-    std::size_t received;
     std::string text = "Connected to: ";
 
     sf::TcpListener listener;
@@ -16,24 +14,18 @@ void hostServer()
     text += "Server";
 
     socket.send(text.c_str(), text.length() + 1);
-    // socket.receive(buffer, sizeof(buffer), received);
-    // std::cout << buffer << std::endl;
 }
 
 void joinServer(int ipAddr1, int ipAddr2, int ipAddr3, int ipAddr4)
 {
     sf::IpAddress ip(ipAddr1, ipAddr2, ipAddr3, ipAddr4);
     char connectionType;
-    char buffer[1024];
-    std::size_t received;
     std::string text = "Connected to: ";
 
     socket.connect(ip, 2000);
     text += "Client";
 
     socket.send(text.c_str(), text.length() + 1);
-    // socket.receive(buffer, sizeof(buffer), received);
-    // std::cout << buffer << std::endl;
 }
 
 void sendWhoTurn(Board masterBoard)
@@ -62,5 +54,12 @@ void sendReset()
 {
     sf::Packet packet;
     packet << "Reset" << 0 << 0;
+    socket.send(packet);
+}
+
+void sendTurnCount(int count)
+{   
+    sf::Packet packet;
+    packet << "turnCount" << count << 0;
     socket.send(packet);
 }
