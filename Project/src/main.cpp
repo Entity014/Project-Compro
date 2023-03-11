@@ -83,52 +83,43 @@ int main()
     title.setFillColor(sf::Color::White);
     title.setPosition(mainWindow.getSize().x / 2 - title.getGlobalBounds().width / 2, 100);
 
+    /*UI*/
+    sf::Texture Play;
+    Play.loadFromFile("asset/UI/play.png");
+    sf::Texture Back;
+    Back.loadFromFile("asset/UI/back.png");
+    sf::Texture Quit;
+    Quit.loadFromFile("asset/UI/quit.png");
+    sf::Texture host;
+    host.loadFromFile("asset/UI/host.png");
+    sf::Texture join;
+    join.loadFromFile("asset/UI/join.png");
+    sf::Texture connect;
+    connect.loadFromFile("asset/UI/connect.png");
+
     /* Button Main Window */
-    sf::RectangleShape backButton(sf::Vector2f(200, 50));
-    backButton.setPosition(mainWindow.getSize().x / 2 - backButton.getSize().x / 2, 350);
-    backButton.setFillColor(sf::Color{0, 0, 0, 0});
-    sf::Text backText("Back", font, 30);
-    backText.setFillColor(sf::Color{0, 0, 0, 0});
-    backText.setPosition(backButton.getPosition().x + backButton.getSize().x / 2 - backText.getGlobalBounds().width / 2, backButton.getPosition().y + backButton.getSize().y / 2 - backText.getGlobalBounds().height / 2);
+    sf::Sprite backButton(Back);
+    backButton.setPosition(mainWindow.getSize().x / 2 - backButton.getGlobalBounds().width / 2, 1000);
 
     /* First Layer */
-    sf::RectangleShape playButton(sf::Vector2f(200, 50));
-    playButton.setPosition(mainWindow.getSize().x / 2 - playButton.getSize().x / 2, 250);
-    playButton.setFillColor(sf::Color::Black);
-    sf::Text playText("Play", font, 30);
-    playText.setFillColor(sf::Color::White);
-    playText.setPosition(playButton.getPosition().x + playButton.getSize().x / 2 - playText.getGlobalBounds().width / 2, playButton.getPosition().y + playButton.getSize().y / 2 - playText.getGlobalBounds().height / 2);
+    sf::Sprite playButton(Play);
+    playButton.setPosition(mainWindow.getSize().x / 2 - playButton.getGlobalBounds().width / 2, 350);
 
-    sf::RectangleShape quitButton(sf::Vector2f(200, 50));
-    quitButton.setFillColor(sf::Color::Black);
-    quitButton.setPosition(mainWindow.getSize().x / 2 - quitButton.getSize().x / 2, 350);
-    sf::Text quitText("Quit", font, 30);
-    quitText.setFillColor(sf::Color::White);
-    quitText.setPosition(quitButton.getPosition().x + quitButton.getSize().x / 2 - quitText.getGlobalBounds().width / 2, quitButton.getPosition().y + quitButton.getSize().y / 2 - quitText.getGlobalBounds().height / 2);
+    sf::Sprite quitButton(Quit);
+    quitButton.setPosition(mainWindow.getSize().x / 2 - quitButton.getGlobalBounds().width / 2, 500);
 
     /* Second Layer */
-    sf::RectangleShape serverButton(sf::Vector2f(200, 50));
-    serverButton.setFillColor(sf::Color{0, 0, 0, 0});
-    serverButton.setPosition(mainWindow.getSize().x / 4 - serverButton.getSize().x / 2, 250);
-    sf::Text serverText("Server", font, 30);
-    serverText.setFillColor(sf::Color{0, 0, 0, 0});
-    serverText.setPosition(serverButton.getPosition().x + serverButton.getSize().x / 2 - serverText.getGlobalBounds().width / 2, serverButton.getPosition().y + serverButton.getSize().y / 2 - serverText.getGlobalBounds().height / 2);
+    sf::Sprite serverButton(host);
+    serverButton.setPosition(mainWindow.getSize().x / 2 - serverButton.getGlobalBounds().width / 2, 1000);
 
-    sf::RectangleShape joinButton(sf::Vector2f(200, 50));
-    joinButton.setFillColor(sf::Color{0, 0, 0, 0});
-    joinButton.setPosition(3*mainWindow.getSize().x / 4 - joinButton.getSize().x / 2, 450);
-    sf::Text joinText("Join", font, 30);
-    joinText.setFillColor(sf::Color{0, 0, 0, 0});
-    joinText.setPosition(joinButton.getPosition().x + joinButton.getSize().x / 2 - joinText.getGlobalBounds().width / 2, joinButton.getPosition().y + joinButton.getSize().y / 2 - joinText.getGlobalBounds().height / 2);
+    sf::Sprite joinButton(join);
+    joinButton.setPosition(mainWindow.getSize().x / 2 - joinButton.getGlobalBounds().width / 2, 1000);
 
     /* Third Layer */
-    sf::RectangleShape connectButton(sf::Vector2f(200, 50));
-    connectButton.setFillColor(sf::Color{0, 0, 0, 0});
-    connectButton.setPosition(3*mainWindow.getSize().x / 4 - connectButton.getSize().x / 2, 375);
-    sf::Text connectText("Connect", font, 30);
-    connectText.setFillColor(sf::Color{0, 0, 0, 0});
-    connectText.setPosition(connectButton.getPosition().x + connectButton.getSize().x / 2 - connectText.getGlobalBounds().width / 2, connectButton.getPosition().y + connectButton.getSize().y / 2 - connectText.getGlobalBounds().height / 2);
-    
+    sf::Sprite connectButton(connect);
+    connectButton.setPosition(mainWindow.getSize().x / 2 - connectButton.getGlobalBounds().width / 2, 1000);
+
+
     sf::Text guideText1("Enter to comfirm", font, 30);
     guideText1.setFillColor(sf::Color{0, 0, 0, 0});
     guideText1.setPosition(mainWindow.getSize().x / 2 - guideText1.getGlobalBounds().width / 2, 550);
@@ -167,17 +158,22 @@ int main()
                     sf::Vector2i mousePos = sf::Mouse::getPosition(mainWindow);
                     if (playButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && !firstLayer)
                     {
-                        quitButton.setPosition(quitButton.getPosition().x, quitButton.getPosition().y + 100);
-                        quitText.setPosition(quitText.getPosition().x, quitText.getPosition().y + 100);
+                        //quitButton.setPosition(quitButton.getPosition().x, quitButton.getPosition().y + 100);
+                        //quitText.setPosition(quitText.getPosition().x, quitText.getPosition().y + 100);
                         /* Color */
-                        playButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        playText.setFillColor(sf::Color{0, 0, 0, 0});
-                        serverButton.setFillColor(sf::Color::Black);
-                        serverText.setFillColor(sf::Color::White);
-                        joinButton.setFillColor(sf::Color::Black);
-                        joinText.setFillColor(sf::Color::White);
-                        backButton.setFillColor(sf::Color::Black);
-                        backText.setFillColor(sf::Color::White);
+                        
+                        playButton.setPosition(-1000, -1000);
+                        quitButton.setPosition(-1000, -1000);
+                        connectButton.setPosition(-1000,-1000);
+                        serverButton.setPosition(mainWindow.getSize().x / 2 - serverButton.getGlobalBounds().width / 2, 350);
+                        joinButton.setPosition(mainWindow.getSize().x / 2 - joinButton.getGlobalBounds().width / 2, 450);
+                        backButton.setPosition(mainWindow.getSize().x / 2 - backButton.getGlobalBounds().width / 2, 550);
+                        //serverButton.setFillColor(sf::Color::Black);
+                        //serverText.setFillColor(sf::Color::White);
+                        //joinButton.setFillColor(sf::Color::Black);
+                        //joinText.setFillColor(sf::Color::White);
+                        //backButton.setFillColor(sf::Color::Black);
+                        //backText.setFillColor(sf::Color::White);
                         firstLayer = true;
                     }
                     else if (backButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && secondLayer)
@@ -185,10 +181,16 @@ int main()
                         inputText = "";
                         inputMainMenu.clear();
                         /* Position */
-                        quitButton.setPosition(quitButton.getPosition().x + 200, quitButton.getPosition().y);
-                        quitText.setPosition(quitText.getPosition().x + 200, quitText.getPosition().y);
-                        backButton.setPosition(backButton.getPosition().x + 200, backButton.getPosition().y - 25);
-                        backText.setPosition(backText.getPosition().x + 200, backText.getPosition().y - 25);
+                        // quitButton.setPosition(quitButton.getPosition().x + 200, quitButton.getPosition().y);
+                        // //quitText.setPosition(quitText.getPosition().x + 200, quitText.getPosition().y);
+                        // backButton.setPosition(backButton.getPosition().x + 200, backButton.getPosition().y - 25);
+                        // //backText.setPosition(backText.getPosition().x + 200, backText.getPosition().y - 25);
+
+                        connectButton.setPosition(-1000,-1000);
+                        serverButton.setPosition(mainWindow.getSize().x / 2 - serverButton.getGlobalBounds().width / 2, 350);
+                        joinButton.setPosition(mainWindow.getSize().x / 2 - joinButton.getGlobalBounds().width / 2, 450);
+                        backButton.setPosition(mainWindow.getSize().x / 2 - backButton.getGlobalBounds().width / 2, 550);
+                        
 
                         /* Color */
                         drawInputText.setFillColor(sf::Color{0, 0, 0, 0});
@@ -201,30 +203,34 @@ int main()
                         usernameText.setFillColor(sf::Color{0, 0, 0, 0});
                         ipAddressBox.setFillColor(sf::Color{0, 0, 0, 0});
                         ipAddressText.setFillColor(sf::Color{0, 0, 0, 0});
-                        connectButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        connectText.setFillColor(sf::Color{0, 0, 0, 0});
-                        serverButton.setFillColor(sf::Color::Black);
-                        serverText.setFillColor(sf::Color::White);
-                        joinButton.setFillColor(sf::Color::Black);
-                        joinText.setFillColor(sf::Color::White);
-                        backButton.setFillColor(sf::Color::Black);
-                        backText.setFillColor(sf::Color::White);
+                        //connectButton.setFillColor(sf::Color{0, 0, 0, 0});
+                        //connectText.setFillColor(sf::Color{0, 0, 0, 0});
+                        //serverButton.setFillColor(sf::Color::Black);
+                        //serverText.setFillColor(sf::Color::White);
+                        //joinButton.setFillColor(sf::Color::Black);
+                        //joinText.setFillColor(sf::Color::White);
+                        //backButton.setFillColor(sf::Color::Black);
+                        //backText.setFillColor(sf::Color::White);
                         secondLayer = false;
                     }
                     else if (backButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer)
                     {
-                        quitButton.setPosition(quitButton.getPosition().x, quitButton.getPosition().y - 100);
-                        quitText.setPosition(quitText.getPosition().x, quitText.getPosition().y - 100);
+                        //quitButton.setPosition(quitButton.getPosition().x, quitButton.getPosition().y - 100);
+                        //quitText.setPosition(quitText.getPosition().x, quitText.getPosition().y - 100);
+                        playButton.setPosition(mainWindow.getSize().x / 2 - playButton.getGlobalBounds().width / 2, 350);
+                        quitButton.setPosition(mainWindow.getSize().x / 2 - quitButton.getGlobalBounds().width / 2, 500);
+                        serverButton.setPosition(-1000,-1000);
+                        backButton.setPosition(-1000,-1000);
+                        joinButton.setPosition(-1000,-1000);
+                        connectButton.setPosition(-1000,-1000);
 
                         /* Color */
-                        playButton.setFillColor(sf::Color::Black);
-                        playText.setFillColor(sf::Color::White);
-                        serverButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        serverText.setFillColor(sf::Color{0, 0, 0, 0});
-                        joinButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        joinText.setFillColor(sf::Color{0, 0, 0, 0});
-                        backButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        backText.setFillColor(sf::Color{0, 0, 0, 0});
+                        //serverButton.setFillColor(sf::Color{0, 0, 0, 0});
+                        //serverText.setFillColor(sf::Color{0, 0, 0, 0});
+                        //joinButton.setFillColor(sf::Color{0, 0, 0, 0});
+                        //joinText.setFillColor(sf::Color{0, 0, 0, 0});
+                        //backButton.setFillColor(sf::Color{0, 0, 0, 0});
+                        //backText.setFillColor(sf::Color{0, 0, 0, 0});
                         firstLayer = false;
                     }
                     else if (quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
@@ -242,21 +248,26 @@ int main()
                     else if (joinButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer && !secondLayer)
                     {
                         quitButton.setPosition(quitButton.getPosition().x - 200, quitButton.getPosition().y);
-                        quitText.setPosition(quitText.getPosition().x - 200, quitText.getPosition().y);
-                        backButton.setPosition(backButton.getPosition().x - 200, backButton.getPosition().y + 25);
-                        backText.setPosition(backText.getPosition().x - 200, backText.getPosition().y + 25);
+                        //quitText.setPosition(quitText.getPosition().x - 200, quitText.getPosition().y);
+                        backButton.setPosition(mainWindow.getSize().x / 2 - backButton.getGlobalBounds().width / 2, 550);
+                        connectButton.setPosition(mainWindow.getSize().x / 2 - connectButton.getGlobalBounds().width / 2, 450);
+                        //backText.setPosition(backText.getPosition().x - 200, backText.getPosition().y + 25);
                         /* Color */
                         usernameBox.setFillColor(sf::Color{0, 0, 0, 0});
-                        serverButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        serverText.setFillColor(sf::Color{0, 0, 0, 0});
-                        joinButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        joinText.setFillColor(sf::Color{0, 0, 0, 0});
+                        //serverButton.setFillColor(sf::Color{0, 0, 0, 0});
+                        //serverText.setFillColor(sf::Color{0, 0, 0, 0});
+                        //joinButton.setFillColor(sf::Color{0, 0, 0, 0});
+                        //joinText.setFillColor(sf::Color{0, 0, 0, 0});
+
+                        serverButton.setPosition(-1000,-1000);
+                        joinButton.setPosition(-1000,-1000);
+
                         usernameBox.setFillColor(sf::Color::White);
                         usernameText.setFillColor(sf::Color::White);
                         ipAddressBox.setFillColor(sf::Color::White);
                         ipAddressText.setFillColor(sf::Color::White);
-                        connectButton.setFillColor(sf::Color::Black);
-                        connectText.setFillColor(sf::Color::White);
+                        //connectButton.setFillColor(sf::Color::Black);
+                        //connectText.setFillColor(sf::Color::White);
                         drawInputText.setFillColor(sf::Color::Red);
                         secondLayer = true;
                     }
@@ -306,17 +317,16 @@ int main()
         /* Render First Layer */
         mainWindow.draw(title);
         mainWindow.draw(playButton);
-        mainWindow.draw(playText);
         mainWindow.draw(quitButton);
-        mainWindow.draw(quitText);
+        //mainWindow.draw(quitText);
 
         /* Render Second Layer */
         mainWindow.draw(serverButton);
-        mainWindow.draw(serverText);
+        //mainWindow.draw(serverText);
         mainWindow.draw(joinButton);
-        mainWindow.draw(joinText);
+        //mainWindow.draw(joinText);
         mainWindow.draw(backButton);
-        mainWindow.draw(backText);
+        //mainWindow.draw(backText);
 
         /* Render Third Layer */
         mainWindow.draw(usernameBox);
@@ -324,7 +334,7 @@ int main()
         mainWindow.draw(ipAddressBox);
         mainWindow.draw(ipAddressText);
         mainWindow.draw(connectButton);
-        mainWindow.draw(connectText);
+        //mainWindow.draw(connectText);
         mainWindow.draw(guideText1);
 
         /* Render Input */
