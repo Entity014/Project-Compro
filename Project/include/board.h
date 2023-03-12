@@ -11,6 +11,7 @@ class Board
 {
     public:
         bool isEnd = false;
+        int whoLose;
         int whoTurn = 0;
         sf::RectangleShape boardChess[fields * fields];
         sf::RectangleShape boardSurface[fields * fields];

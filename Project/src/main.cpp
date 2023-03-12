@@ -513,9 +513,10 @@ int main()
     std::vector<sf::Sound> soundVector;
     std::vector<sf::SoundBuffer> soundBufferVector;
     std::vector<std::string> pathMusic = {"asset/music/PVZ.ogg", "asset/music/MC.ogg", "asset/music/RickRoll.ogg"} ;
-    std::vector<std::string> pathSound = {"asset/sound/wanjeab.wav","asset/sound/Dead.wav","asset/sound/Lose.wav"} ;
+    std::vector<std::string> pathSound = {"asset/sound/wanjeab.wav", "asset/sound/Dead.wav", "asset/sound/Lose.wav", "asset/sound/win.wav"} ;
     sf::Music music1, music2, music3;
     bool musicPlaying1 = false, musicPlaying2 = false, musicPlaying3 = false;
+    bool soundEndPlaying1 = false, soundEndPlaying2 = false;
 
     music1.openFromFile(pathMusic[0]);
     music2.openFromFile(pathMusic[1]);
@@ -526,7 +527,6 @@ int main()
 
     loadSound(soundVector, soundBufferVector, pathSound);
     // std::cout << soundBufferVector.size() << " " << soundVector.size() << std::endl;
-    soundVector[1].play();
     if (!musicPlaying1)
     {
         music1.play();
@@ -536,6 +536,7 @@ int main()
     }
     while (game.isOpen())
     {
+        std::cout << masterBoard.whoLose << std::endl;
         // std::cout << deadStackBlack.size() << " " << deadStackWhite.size() << std::endl;
         // std::cout << " P1: " << musicPlaying1 << "P2: " << musicPlaying2 << "P3: " << musicPlaying3 << std::endl;
         // std::cout << masterBoard.isEnd << std::endl;
@@ -561,6 +562,31 @@ int main()
         }
         if(masterBoard.isEnd)
         {
+            /* Sound */
+            if (masterBoard.whoLose == 0)
+            {
+                if (Pturn == 0 && !soundEndPlaying1)
+                {
+                    soundVector[2].play();
+                }
+                else if (Pturn == 1 && !soundEndPlaying2)
+                {
+                    soundVector[3].play();
+                }
+            }
+            if (masterBoard.whoLose == 1)
+            {
+                if (Pturn == 1 && !soundEndPlaying1)
+                {
+                    soundVector[2].play();
+                    soundEndPlaying1 = true;
+                }
+                else if (Pturn == 0 && !soundEndPlaying2)
+                {
+                    soundVector[3].play();
+                    soundEndPlaying2 = true;
+                }
+            }
             /* Music */
             if (!musicPlaying3)
             {
@@ -576,7 +602,6 @@ int main()
 
         //std::cout << deadStackB.size() << " " << deadStackW.size() << std::endl ;
         //std::cout << Pturn << " " << masterBoard.whoTurn << std::endl ;
-        std::cout << soundVector.size() ;
         /* Send Data */
         if (preTurn != masterBoard.whoTurn)
         {
@@ -599,6 +624,7 @@ int main()
         }
         for (int i = 0; i < count; i++)
         {
+            // std::cout << i << " " << enemy[i].moveType << std::endl;
             if (enemy[i].isDead)
             {
                 if (std::count(deadStack.begin(), deadStack.end(), i) < 1)
@@ -620,32 +646,31 @@ int main()
                     //soundVector[0].play();
 
                 }
+
+                if(preDeadB != deadStackB.size())
+                {
+                    preDeadB = deadStackB.size();
+                    if(preDeadB > 0 && enemy[i].moveType != -5)
+                    {
+                        if(Pturn == 0) soundVector[0].play();
+                        else soundVector[1].play();
+                    }
+                    
+                }
+
+                if(preDeadW != deadStackW.size())
+                {
+                    preDeadW = deadStackW.size();
+                    if(preDeadW > 0 && enemy[i].moveType != 5)
+                    {
+                        if(Pturn == 1) soundVector[0].play();
+                        else soundVector[1].play();
+                    }
+                }
             }
         }
-        if(preDeadB != deadStackB.size())
-        {
-            preDeadB = deadStackB.size();
-            if(preDeadB > 0)
-            {
-                if(Pturn == 0) soundVector[0].play();
-                else soundVector[1].play();
-            }
-            
-        }
 
-        if(preDeadW != deadStackW.size())
-        {
-            preDeadW = deadStackW.size();
-            if(preDeadW > 0)
-            {
-                if(Pturn == 1) soundVector[0].play();
-                else soundVector[1].play();
-            }
-        }
-
-
-
-
+        
 
         // std::cout << masterBoard.isEnd << std::endl;
         /* Game Event */
@@ -692,12 +717,10 @@ int main()
                                     enemy[countE].kill = false;
                                     masterBoard.isEnd = false;
                                     masterBoard.whoTurn = rand()%2;
+                                    deadStack.clear();
+                                    deadStackB.clear();
+                                    deadStackW.clear();
                                     countE++;
-                                    
-                                    /* Server */
-                                    turnCount = 0 ;
-                                    serverReset = false;
-                                    sendReset();
 
                                     /* Music */
                                     musicPlaying1 = false;
@@ -711,6 +734,14 @@ int main()
                                     musicPlaying1 = false;
                                     musicPlaying2 = false;
                                     musicPlaying3 = false;
+                                    soundEndPlaying1 = false;
+                                    soundEndPlaying2 = false;
+                                    
+                                    /* Server */
+                                    turnCount = 0 ;
+                                    serverReset = false;
+                                    sendReset();
+
                                 }
                             }
                             countE = 0;
