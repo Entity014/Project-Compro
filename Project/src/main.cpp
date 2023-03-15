@@ -367,7 +367,7 @@ int main()
     }
 
     /* Network */
-    int preTurn = masterBoard.whoTurn, preSelect, prePosition, preDead, preTurnCount;
+    int preTurn = masterBoard.whoTurn, preSelect, prePosition, preDead ,preDeadW ,preDeadB ,preTurnCount;
     bool serverReset = false;
     if (connectionType == 's')
     {
@@ -506,14 +506,17 @@ int main()
     roundText.setPosition(roundScreen.getPosition().x + roundScreen.getSize().x / 2 - roundText.getGlobalBounds().width / 2, roundScreen.getPosition().y + roundScreen.getSize().y / 2 - roundText.getGlobalBounds().height);
     
     std::vector<int> deadStack;
+    std::vector<int> deadStackW;
+    std::vector<int> deadStackB;
 
     /* Sound and Music */
     std::vector<sf::Sound> soundVector;
     std::vector<sf::SoundBuffer> soundBufferVector;
     std::vector<std::string> pathMusic = {"asset/music/PVZ.ogg", "asset/music/MC.ogg", "asset/music/RickRoll.ogg"} ;
-    std::vector<std::string> pathSound = {"asset/sound/wanjeab.wav"} ;
+    std::vector<std::string> pathSound = {"asset/sound/wanjeab.wav", "asset/sound/Dead.wav", "asset/sound/Lose.wav", "asset/sound/win.wav"} ;
     sf::Music music1, music2, music3;
     bool musicPlaying1 = false, musicPlaying2 = false, musicPlaying3 = false;
+    bool soundEndPlaying1 = false, soundEndPlaying2 = false;
 
     music1.openFromFile(pathMusic[0]);
     music2.openFromFile(pathMusic[1]);
@@ -524,7 +527,6 @@ int main()
 
     loadSound(soundVector, soundBufferVector, pathSound);
     // std::cout << soundBufferVector.size() << " " << soundVector.size() << std::endl;
-    // soundVector[0].play();
     if (!musicPlaying1)
     {
         music1.play();
@@ -534,6 +536,7 @@ int main()
     }
     while (game.isOpen())
     {
+        std::cout << masterBoard.whoLose << std::endl;
         // std::cout << deadStackBlack.size() << " " << deadStackWhite.size() << std::endl;
         // std::cout << " P1: " << musicPlaying1 << "P2: " << musicPlaying2 << "P3: " << musicPlaying3 << std::endl;
         // std::cout << masterBoard.isEnd << std::endl;
@@ -559,9 +562,35 @@ int main()
         }
         if(masterBoard.isEnd)
         {
+            /* Sound */
+            if (masterBoard.whoLose == 0)
+            {
+                if (Pturn == 0 && !soundEndPlaying1)
+                {
+                    soundVector[2].play();
+                }
+                else if (Pturn == 1 && !soundEndPlaying2)
+                {
+                    soundVector[3].play();
+                }
+            }
+            if (masterBoard.whoLose == 1)
+            {
+                if (Pturn == 1 && !soundEndPlaying1)
+                {
+                    soundVector[2].play();
+                    soundEndPlaying1 = true;
+                }
+                else if (Pturn == 0 && !soundEndPlaying2)
+                {
+                    soundVector[3].play();
+                    soundEndPlaying2 = true;
+                }
+            }
             /* Music */
             if (!musicPlaying3)
             {
+                sf::sleep(sf::milliseconds(5000));
                 music1.stop();
                 music2.stop();
                 music3.play();
@@ -572,6 +601,8 @@ int main()
         /* Check */
         checkWin(resultScreen, background, resultText, resetButton, resetText, masterBoard, enemy, defaultBoard, count, Pturn);
 
+        //std::cout << deadStackB.size() << " " << deadStackW.size() << std::endl ;
+        //std::cout << Pturn << " " << masterBoard.whoTurn << std::endl ;
         /* Send Data */
         if (preTurn != masterBoard.whoTurn)
         {
@@ -594,11 +625,17 @@ int main()
         }
         for (int i = 0; i < count; i++)
         {
+            // std::cout << i << " " << enemy[i].moveType << std::endl;
             if (enemy[i].isDead)
             {
                 if (std::count(deadStack.begin(), deadStack.end(), i) < 1)
                 {
                     deadStack.push_back(i);
+                    if(enemy[i].moveType < 0)
+                    {
+                        deadStackB.push_back(i);
+                    }
+                    else deadStackW.push_back(i);
                 }
                 // std::cout << std::count(deadStack.begin(), deadStack.end(), i)  << std::endl;
                 // sendDead(i);
@@ -607,10 +644,34 @@ int main()
                     sendDead(i);
                     // std::cout << i << " " << deadStack.size() << " " << preDead << std::endl;
                     preDead = deadStack.size();
-                    soundVector[0].play();
+                    //soundVector[0].play();
+
+                }
+
+                if(preDeadB != deadStackB.size())
+                {
+                    preDeadB = deadStackB.size();
+                    if(preDeadB > 0 && enemy[i].moveType != -5)
+                    {
+                        if(Pturn == 0) soundVector[0].play();
+                        else soundVector[1].play();
+                    }
+                    
+                }
+
+                if(preDeadW != deadStackW.size())
+                {
+                    preDeadW = deadStackW.size();
+                    if(preDeadW > 0 && enemy[i].moveType != 5)
+                    {
+                        if(Pturn == 1) soundVector[0].play();
+                        else soundVector[1].play();
+                    }
                 }
             }
         }
+
+        
 
         // std::cout << masterBoard.isEnd << std::endl;
         /* Game Event */
@@ -657,12 +718,10 @@ int main()
                                     enemy[countE].kill = false;
                                     masterBoard.isEnd = false;
                                     masterBoard.whoTurn = rand()%2;
+                                    deadStack.clear();
+                                    deadStackB.clear();
+                                    deadStackW.clear();
                                     countE++;
-                                    
-                                    /* Server */
-                                    turnCount = 0 ;
-                                    serverReset = false;
-                                    sendReset();
 
                                     /* Music */
                                     musicPlaying1 = false;
@@ -676,6 +735,14 @@ int main()
                                     musicPlaying1 = false;
                                     musicPlaying2 = false;
                                     musicPlaying3 = false;
+                                    soundEndPlaying1 = false;
+                                    soundEndPlaying2 = false;
+                                    
+                                    /* Server */
+                                    turnCount = 0 ;
+                                    serverReset = false;
+                                    sendReset();
+
                                 }
                             }
                             countE = 0;
@@ -693,7 +760,7 @@ int main()
                 {
                     if (masterBoard.whoTurn == 0 && enemy[i].moveType > 0)
                     {
-                        if(Pturn == masterBoard.whoTurn) movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count, turnCount);
+                        if(Pturn == masterBoard.whoTurn)movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count, turnCount);
                         isTurnText.setString("White's Turn");
                         isTurnText.setFillColor(sf::Color::Black);
                         isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
@@ -713,7 +780,7 @@ int main()
                         // std::cout << enemy[select].canAttack << std::endl;
                         if (masterBoard.whoTurn == 0 && enemy[i].moveType > 0)
                         {
-                            if(Pturn == masterBoard.whoTurn) movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
+                            if(Pturn == masterBoard.whoTurn)movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
                             isTurnText.setString("White's Turn");
                             isTurnText.setFillColor(sf::Color::Black);
                             isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
