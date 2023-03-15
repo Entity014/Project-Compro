@@ -49,12 +49,12 @@ int count = 0;
 /* Texture */
 std::string pathE[12] = 
 {
-    "asset/texture/b_rook_png_128px.png", "asset/texture/b_knight_png_128px.png", "asset/texture/b_bishop_png_128px.png", "asset/texture/b_queen_png_128px.png", "asset/texture/b_king_png_128px.png", "asset/texture/b_pawn_png_128px.png",
-    "asset/texture/w_rook_png_128px.png", "asset/texture/w_knight_png_128px.png", "asset/texture/w_bishop_png_128px.png", "asset/texture/w_queen_png_128px.png", "asset/texture/w_king_png_128px.png", "asset/texture/w_pawn_png_128px.png"
+    "asset/texture/New/black_rook.png", "asset/texture/New/black_horse.png", "asset/texture/New/black_bishop.png", "asset/texture/New/black_queen.png", "asset/texture/New/black_king.png", "asset/texture/New/black_pond.png",
+    "asset/texture/New/white_rook.png", "asset/texture/New/white_horse.png", "asset/texture/New/white_bishop.png", "asset/texture/New/white_queen.png", "asset/texture/New/white_king.png", "asset/texture/New/white_pond.png"
 };
 std::string pathP[] =
 {
-    "asset/texture/test.png"
+    "asset/texture/New/test.png"
 };
 
 /* Client Setting*/
@@ -158,8 +158,6 @@ int main()
                     sf::Vector2i mousePos = sf::Mouse::getPosition(mainWindow);
                     if (playButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && !firstLayer)
                     {
-                        //quitButton.setPosition(quitButton.getPosition().x, quitButton.getPosition().y + 100);
-                        //quitText.setPosition(quitText.getPosition().x, quitText.getPosition().y + 100);
                         /* Color */
                         
                         playButton.setPosition(-1000, -1000);
@@ -180,11 +178,6 @@ int main()
                     {
                         inputText = "";
                         inputMainMenu.clear();
-                        /* Position */
-                        // quitButton.setPosition(quitButton.getPosition().x + 200, quitButton.getPosition().y);
-                        // //quitText.setPosition(quitText.getPosition().x + 200, quitText.getPosition().y);
-                        // backButton.setPosition(backButton.getPosition().x + 200, backButton.getPosition().y - 25);
-                        // //backText.setPosition(backText.getPosition().x + 200, backText.getPosition().y - 25);
 
                         connectButton.setPosition(-1000,-1000);
                         serverButton.setPosition(mainWindow.getSize().x / 2 - serverButton.getGlobalBounds().width / 2, 350);
@@ -203,20 +196,10 @@ int main()
                         usernameText.setFillColor(sf::Color{0, 0, 0, 0});
                         ipAddressBox.setFillColor(sf::Color{0, 0, 0, 0});
                         ipAddressText.setFillColor(sf::Color{0, 0, 0, 0});
-                        //connectButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        //connectText.setFillColor(sf::Color{0, 0, 0, 0});
-                        //serverButton.setFillColor(sf::Color::Black);
-                        //serverText.setFillColor(sf::Color::White);
-                        //joinButton.setFillColor(sf::Color::Black);
-                        //joinText.setFillColor(sf::Color::White);
-                        //backButton.setFillColor(sf::Color::Black);
-                        //backText.setFillColor(sf::Color::White);
                         secondLayer = false;
                     }
                     else if (backButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer)
                     {
-                        //quitButton.setPosition(quitButton.getPosition().x, quitButton.getPosition().y - 100);
-                        //quitText.setPosition(quitText.getPosition().x, quitText.getPosition().y - 100);
                         playButton.setPosition(mainWindow.getSize().x / 2 - playButton.getGlobalBounds().width / 2, 350);
                         quitButton.setPosition(mainWindow.getSize().x / 2 - quitButton.getGlobalBounds().width / 2, 500);
                         serverButton.setPosition(-1000,-1000);
@@ -224,13 +207,6 @@ int main()
                         joinButton.setPosition(-1000,-1000);
                         connectButton.setPosition(-1000,-1000);
 
-                        /* Color */
-                        //serverButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        //serverText.setFillColor(sf::Color{0, 0, 0, 0});
-                        //joinButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        //joinText.setFillColor(sf::Color{0, 0, 0, 0});
-                        //backButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        //backText.setFillColor(sf::Color{0, 0, 0, 0});
                         firstLayer = false;
                     }
                     else if (quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
@@ -248,16 +224,11 @@ int main()
                     else if (joinButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer && !secondLayer)
                     {
                         quitButton.setPosition(quitButton.getPosition().x - 200, quitButton.getPosition().y);
-                        //quitText.setPosition(quitText.getPosition().x - 200, quitText.getPosition().y);
                         backButton.setPosition(mainWindow.getSize().x / 2 - backButton.getGlobalBounds().width / 2, 550);
                         connectButton.setPosition(mainWindow.getSize().x / 2 - connectButton.getGlobalBounds().width / 2, 450);
-                        //backText.setPosition(backText.getPosition().x - 200, backText.getPosition().y + 25);
+
                         /* Color */
                         usernameBox.setFillColor(sf::Color{0, 0, 0, 0});
-                        //serverButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        //serverText.setFillColor(sf::Color{0, 0, 0, 0});
-                        //joinButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        //joinText.setFillColor(sf::Color{0, 0, 0, 0});
 
                         serverButton.setPosition(-1000,-1000);
                         joinButton.setPosition(-1000,-1000);
@@ -266,8 +237,6 @@ int main()
                         usernameText.setFillColor(sf::Color::White);
                         ipAddressBox.setFillColor(sf::Color::White);
                         ipAddressText.setFillColor(sf::Color::White);
-                        //connectButton.setFillColor(sf::Color::Black);
-                        //connectText.setFillColor(sf::Color::White);
                         drawInputText.setFillColor(sf::Color::Red);
                         secondLayer = true;
                     }
@@ -276,8 +245,8 @@ int main()
                         // int d1, d2, d3, d4;
                         // id = usernameAndIp[0];
                         // sscanf(usernameAndIp[1].c_str(), "%d.%d.%d.%d", &d1, &d2, &d3, &d4);
-                        // // std::cout << d1 << d2 << d3 << d4 << std::endl;
-                        // // std::cout << usernameAndIp[1] << std::endl;
+                        // std::cout << d1 << d2 << d3 << d4 << std::endl;
+                        // std::cout << usernameAndIp[1] << std::endl;
                         // joinServer(d1, d2, d3, d4);
                         connectionType = 'c';
                         mainWindow.close();
@@ -500,8 +469,8 @@ int main()
     isTurnText.setFillColor(sf::Color{0, 0, 0, 0});
     whoText.setFillColor(sf::Color::Black);
     whoText.setPosition(whoScreen.getPosition().x + whoScreen.getSize().x / 2 - whoText.getGlobalBounds().width / 2, whoScreen.getPosition().y + whoScreen.getSize().y / 2 - whoText.getGlobalBounds().height);
-    if(Pturn == 0) whoText.setString("You are White");
-    else whoText.setString("You are Black");
+    if(Pturn == 0) whoText.setString("You are White Side");
+    else whoText.setString("You are Black Side");
     roundText.setFillColor(sf::Color::Black);
     roundText.setPosition(roundScreen.getPosition().x + roundScreen.getSize().x / 2 - roundText.getGlobalBounds().width / 2, roundScreen.getPosition().y + roundScreen.getSize().y / 2 - roundText.getGlobalBounds().height);
     
@@ -536,7 +505,7 @@ int main()
     }
     while (game.isOpen())
     {
-        std::cout << masterBoard.whoLose << std::endl;
+        // std::cout << Pturn << " " << masterBoard.whoLose << " " << soundEndPlaying1 << " " << soundEndPlaying2 << std::endl;
         // std::cout << deadStackBlack.size() << " " << deadStackWhite.size() << std::endl;
         // std::cout << " P1: " << musicPlaying1 << "P2: " << musicPlaying2 << "P3: " << musicPlaying3 << std::endl;
         // std::cout << masterBoard.isEnd << std::endl;
@@ -588,9 +557,8 @@ int main()
                 }
             }
             /* Music */
-            if (!musicPlaying3)
+            if (!musicPlaying3 && (soundEndPlaying1 || soundEndPlaying2))
             {
-                sf::sleep(sf::milliseconds(5000));
                 music1.stop();
                 music2.stop();
                 music3.play();
@@ -739,6 +707,7 @@ int main()
                                     soundEndPlaying2 = false;
                                     
                                     /* Server */
+                                    masterBoard.whoLose = -1;
                                     turnCount = 0 ;
                                     serverReset = false;
                                     sendReset();
@@ -754,54 +723,73 @@ int main()
 
             /* Movement */
             // std::cout << enemy[select].isMove << std::endl;
-            for (int i = 0; i < count; i++)
-            {   
-                if (!enemy[select].canAttack)
-                {
-                    if (masterBoard.whoTurn == 0 && enemy[i].moveType > 0)
+            if (!masterBoard.isEnd)
+            {
+                for (int i = 0; i < count; i++)
+                {   
+                    if (!enemy[select].canAttack)
                     {
-                        if(Pturn == masterBoard.whoTurn)movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count, turnCount);
-                        isTurnText.setString("White's Turn");
-                        isTurnText.setFillColor(sf::Color::Black);
-                        isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
-                    }
-                    else if (masterBoard.whoTurn == 1 && enemy[i].moveType < 0)
-                    {
-                        if(Pturn == masterBoard.whoTurn) movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
-                        isTurnText.setString("Black's Turn");
-                        isTurnText.setFillColor(sf::Color::Black);
-                        isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
-                    }
-                }
-                if (select != -1)
-                {
-                    if (enemy[select].canAttack)
-                    {
-                        // std::cout << enemy[select].canAttack << std::endl;
                         if (masterBoard.whoTurn == 0 && enemy[i].moveType > 0)
                         {
-                            if(Pturn == masterBoard.whoTurn)movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
-                            isTurnText.setString("White's Turn");
+                            if(Pturn == masterBoard.whoTurn)
+                            {
+                                movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count, turnCount);
+                                isTurnText.setString("Your Turn");
+                            }
+                            else isTurnText.setString("Opposite Turn");
                             isTurnText.setFillColor(sf::Color::Black);
                             isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
                         }
                         else if (masterBoard.whoTurn == 1 && enemy[i].moveType < 0)
                         {
-                            if(Pturn == masterBoard.whoTurn)movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
-                            isTurnText.setString("White's Turn");
+                            if(Pturn == masterBoard.whoTurn)
+                            {
+                                movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
+                                isTurnText.setString("Your Turn");
+                            }
+                            else isTurnText.setString("Opposite Turn");
                             isTurnText.setFillColor(sf::Color::Black);
                             isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
                         }
-                        // std::cout << enemy[select].isMove << std::endl;
                     }
-                }
-                if (enemy[i].isMove && !enemy[select].isMove) 
-                {
-                    select = i;
-                }
-                if (enemy[i].isMove && enemy[select].isMove && i != select)
-                {
-                    enemy[select].isMove = false;
+                    if (select != -1)
+                    {
+                        if (enemy[select].canAttack)
+                        {
+                            // std::cout << enemy[select].canAttack << std::endl;
+                            if (masterBoard.whoTurn == 0 && enemy[i].moveType > 0)
+                            {
+                                if(Pturn == masterBoard.whoTurn)
+                                {
+                                    movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
+                                    isTurnText.setString("Your Turn");
+                                }
+                                else isTurnText.setString("Opposite Turn");
+                                isTurnText.setFillColor(sf::Color::Black);
+                                isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
+                            }
+                            else if (masterBoard.whoTurn == 1 && enemy[i].moveType < 0)
+                            {
+                                if(Pturn == masterBoard.whoTurn)
+                                {
+                                    movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
+                                    isTurnText.setString("Your Turn");
+                                }
+                                else isTurnText.setString("Opposite Turn");
+                                isTurnText.setFillColor(sf::Color::Black);
+                                isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
+                            }
+                            // std::cout << enemy[select].isMove << std::endl;
+                        }
+                    }
+                    if (enemy[i].isMove && !enemy[select].isMove) 
+                    {
+                        select = i;
+                    }
+                    if (enemy[i].isMove && enemy[select].isMove && i != select)
+                    {
+                        enemy[select].isMove = false;
+                    }
                 }
             }
             masterBoard.boardHighlight(defaultBoard, enemy[select].moveType, enemy[select].position, enemy[select].target, enemy[select].isMove, enemy[select].firstMove, enemy[select].canAttack);
@@ -874,11 +862,11 @@ int main()
         game.draw(player[0].entity);
         game.draw(isTurnScreen);
         game.draw(isTurnText);
-        game.draw(background);
         game.draw(roundScreen);
         game.draw(roundText);
         game.draw(whoScreen);
         game.draw(whoText);
+        game.draw(background);
         game.draw(resultScreen);
         game.draw(resultText);
         game.draw(resetButton);

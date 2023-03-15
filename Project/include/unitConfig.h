@@ -31,14 +31,14 @@ void Unit::loadTextures(const std::string pE)
 void Unit::entityConfig(const std::string pE, sf::Vector2f bP, sf::RectangleShape Status)
 {
     sf::Vector2f leftBottom = Status.getPosition();
-    leftBottom.y += Status.getSize().y / 1.50f; // 1.50f
+    leftBottom.y += Status.getSize().y / 1.5f; // 1.50f
     if (unitType == "Enemy")
     {
         // std::cout << unitType << std::endl;
         loadTextures(pE);
         entity.setTexture(texture);
-        entity.setScale(sf::Vector2f(0.65f, 0.65f)); // 0.45 || 0.65
-        entity.setPosition(bP);
+        entity.setScale(sf::Vector2f(1.0f, 1.0f)); // 0.45 || 0.65
+        entity.setPosition(bP.x + tileSize / 2 - entity.getGlobalBounds().width / 2, bP.y + tileSize / 2 - entity.getGlobalBounds().height / 2);
     }
     else if (unitType == "Player")
     {

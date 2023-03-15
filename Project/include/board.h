@@ -31,7 +31,7 @@ void Board::boardConfig()
         bChess.setPosition(tileSize * (i % fields) + moveRight, tileSize * j);
         bHighlight.setPosition(bChess.getPosition());
         bHighlight.setFillColor(sf::Color{101, 232, 65, 0});
-        boardPositions[i] = bChess.getPosition() + (0.15f * bChess.getSize());
+        boardPositions[i] = bChess.getPosition();
         if (i % 2 == 1 && j % 2 == 0)
         {
             // std::cout << "1" << " ";
