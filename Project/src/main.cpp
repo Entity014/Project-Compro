@@ -590,6 +590,7 @@ int main()
             /* Music */
             if (!musicPlaying3)
             {
+                sf::sleep(sf::milliseconds(5000));
                 music1.stop();
                 music2.stop();
                 music3.play();
