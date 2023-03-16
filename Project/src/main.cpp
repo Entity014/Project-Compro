@@ -499,6 +499,7 @@ int main()
     if (!musicPlaying1)
     {
         music1.play();
+        music1.setLoop(true);
         music2.stop();
         music3.stop();
         musicPlaying1 = true;
@@ -524,6 +525,7 @@ int main()
                 {
                     music1.stop();
                     music2.play();
+                    music2.setLoop(true);
                     music3.stop();
                     musicPlaying2 = true;
                 }
@@ -562,6 +564,7 @@ int main()
                 music1.stop();
                 music2.stop();
                 music3.play();
+                music3.setLoop(true);
                 musicPlaying3 = true;
             }
         }
@@ -696,6 +699,7 @@ int main()
                                     if (!musicPlaying1)
                                     {
                                         music1.play();
+                                        music1.setLoop(true);
                                         music2.stop();
                                         music3.stop();
                                         musicPlaying1 = true;
@@ -736,7 +740,7 @@ int main()
                                 movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count, turnCount);
                                 isTurnText.setString("Your Turn");
                             }
-                            else isTurnText.setString("Opposite Turn");
+                            else isTurnText.setString("Opponent's Turn");
                             isTurnText.setFillColor(sf::Color::Black);
                             isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
                         }
@@ -747,7 +751,7 @@ int main()
                                 movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
                                 isTurnText.setString("Your Turn");
                             }
-                            else isTurnText.setString("Opposite Turn");
+                            else isTurnText.setString("Opponent's Turn");
                             isTurnText.setFillColor(sf::Color::Black);
                             isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
                         }
@@ -764,7 +768,7 @@ int main()
                                     movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
                                     isTurnText.setString("Your Turn");
                                 }
-                                else isTurnText.setString("Opposite Turn");
+                                else isTurnText.setString("Opponent's Turn");
                                 isTurnText.setFillColor(sf::Color::Black);
                                 isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
                             }
@@ -775,7 +779,7 @@ int main()
                                     movement(masterBoard, enemy[i], enemy, event, mouse, defaultBoard, count,turnCount);
                                     isTurnText.setString("Your Turn");
                                 }
-                                else isTurnText.setString("Opposite Turn");
+                                else isTurnText.setString("Opponent's Turn");
                                 isTurnText.setFillColor(sf::Color::Black);
                                 isTurnText.setPosition(isTurnScreen.getPosition().x + isTurnScreen.getSize().x / 2 - isTurnText.getGlobalBounds().width / 2, isTurnScreen.getPosition().y + isTurnScreen.getSize().y / 2 - isTurnText.getGlobalBounds().height);
                             }
