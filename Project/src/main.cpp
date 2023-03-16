@@ -261,12 +261,9 @@ int main()
                         backButton.setPosition(mainWindow.getSize().x / 1.97 - backButton.getGlobalBounds().width / 2, 550);
                         connectButton.setPosition(mainWindow.getSize().x / 2 - connectButton.getGlobalBounds().width / 2, 450);
                         //backText.setPosition(backText.getPosition().x - 200, backText.getPosition().y + 25);
+
                         /* Color */
                         usernameBox.setFillColor(sf::Color{0, 0, 0, 0});
-                        //serverButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        //serverText.setFillColor(sf::Color{0, 0, 0, 0});
-                        //joinButton.setFillColor(sf::Color{0, 0, 0, 0});
-                        //joinText.setFillColor(sf::Color{0, 0, 0, 0});
 
                         serverButton.setPosition(-1000,-1000);
                         joinButton.setPosition(-1000,-1000);
@@ -756,11 +753,17 @@ int main()
                                     soundEndPlaying2 = false;
                                     
                                     /* Server */
+                                    preDead = -1;
+                                    preDeadB = -1;
+                                    preDeadW = -1;
+                                    preSelect = -1;
+                                    prePosition = -1;
+                                    preTurnCount = -1;
                                     masterBoard.whoLose = -1;
+                                    preTurn = masterBoard.whoTurn;
                                     turnCount = 0 ;
                                     serverReset = false;
                                     sendReset();
-
                                 }
                             }
                             countE = 0;
