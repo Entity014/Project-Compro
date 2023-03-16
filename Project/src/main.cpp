@@ -165,6 +165,12 @@ int main()
     ipAddressText.setFillColor(sf::Color{0, 0, 0, 0});
     ipAddressText.setPosition(mainWindow.getSize().x / 2.8 - ipAddressText.getGlobalBounds().width / 2, 350);
 
+    /* Sound */
+    sf::SoundBuffer firstBuffer;
+    firstBuffer.loadFromFile("asset/sound/Chess_Mae.wav");
+    sf::Sound firstOpen;
+    firstOpen.setBuffer(firstBuffer);
+    firstOpen.play();
 
     while (mainWindow.isOpen())
     {
