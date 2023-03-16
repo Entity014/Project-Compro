@@ -97,6 +97,32 @@ int main()
     sf::Texture connect;
     connect.loadFromFile("asset/UI/connect.png");
 
+    sf::Texture Chess;
+    Chess.loadFromFile("asset/UI/chess mea.png");
+    sf::Sprite chess(Chess);
+    chess.setPosition(mainWindow.getSize().x / 2 - chess.getGlobalBounds().width / 2, 80);
+
+    sf::Texture BG2;
+    BG2.loadFromFile("asset/UI/genshin1.png");
+    sf::Sprite bg2(BG2);
+    bg2.setPosition(mainWindow.getSize().x / 2 - chess.getGlobalBounds().width / 2 + 480, 50);
+
+    sf::Texture BG3;
+    BG3.loadFromFile("asset/UI/genshin2.png");
+    sf::Sprite bg3(BG3);
+    bg3.setPosition(mainWindow.getSize().x / 2 - chess.getGlobalBounds().width / 2 - 450, 50);
+
+    sf::Texture BG4;
+    BG4.loadFromFile("asset/UI/genshin3.png");
+    sf::Sprite bg4(BG4);
+    bg4.setPosition(950, 370);
+
+    sf::Texture BG1;
+    BG1.loadFromFile("asset/UI/BG.png");
+    sf::Sprite bg1(BG1);
+    bg1.setPosition(0,480);
+
+
     /* Button Main Window */
     sf::Sprite backButton(Back);
     backButton.setPosition(mainWindow.getSize().x / 2 - backButton.getGlobalBounds().width / 2, 1000);
@@ -127,17 +153,18 @@ int main()
 
     sf::RectangleShape usernameBox(sf::Vector2f(300,50));
     usernameBox.setFillColor(sf::Color{0, 0, 0, 0});
-    usernameBox.setPosition(mainWindow.getSize().x * 1.2 / 2 - usernameBox.getSize().x / 2, 200);
+    usernameBox.setPosition(mainWindow.getSize().x * 1.15 / 2 - usernameBox.getSize().x / 2, 250);
     sf::Text usernameText("Username :", font, 30);
     usernameText.setFillColor(sf::Color{0, 0, 0, 0});
-    usernameText.setPosition(mainWindow.getSize().x / 4 - usernameText.getGlobalBounds().width / 2, 200);
+    usernameText.setPosition(mainWindow.getSize().x / 2.8 - usernameText.getGlobalBounds().width / 2, 250);
     
     sf::RectangleShape ipAddressBox(sf::Vector2f(300,50));
     ipAddressBox.setFillColor(sf::Color{0, 0, 0, 0});
-    ipAddressBox.setPosition(mainWindow.getSize().x * 1.2 / 2 - ipAddressBox.getSize().x / 2, 300);
+    ipAddressBox.setPosition(mainWindow.getSize().x * 1.15 / 2 - ipAddressBox.getSize().x / 2, 350);
     sf::Text ipAddressText("Ip Address :", font, 30);
     ipAddressText.setFillColor(sf::Color{0, 0, 0, 0});
-    ipAddressText.setPosition(mainWindow.getSize().x / 4 - ipAddressText.getGlobalBounds().width / 2, 300);
+    ipAddressText.setPosition(mainWindow.getSize().x / 2.8 - ipAddressText.getGlobalBounds().width / 2, 350);
+
 
     while (mainWindow.isOpen())
     {
@@ -224,11 +251,16 @@ int main()
                     else if (joinButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && firstLayer && !secondLayer)
                     {
                         quitButton.setPosition(quitButton.getPosition().x - 200, quitButton.getPosition().y);
-                        backButton.setPosition(mainWindow.getSize().x / 2 - backButton.getGlobalBounds().width / 2, 550);
+                        //quitText.setPosition(quitText.getPosition().x - 200, quitText.getPosition().y);
+                        backButton.setPosition(mainWindow.getSize().x / 1.97 - backButton.getGlobalBounds().width / 2, 550);
                         connectButton.setPosition(mainWindow.getSize().x / 2 - connectButton.getGlobalBounds().width / 2, 450);
-
+                        //backText.setPosition(backText.getPosition().x - 200, backText.getPosition().y + 25);
                         /* Color */
                         usernameBox.setFillColor(sf::Color{0, 0, 0, 0});
+                        //serverButton.setFillColor(sf::Color{0, 0, 0, 0});
+                        //serverText.setFillColor(sf::Color{0, 0, 0, 0});
+                        //joinButton.setFillColor(sf::Color{0, 0, 0, 0});
+                        //joinText.setFillColor(sf::Color{0, 0, 0, 0});
 
                         serverButton.setPosition(-1000,-1000);
                         joinButton.setPosition(-1000,-1000);
@@ -237,6 +269,8 @@ int main()
                         usernameText.setFillColor(sf::Color::White);
                         ipAddressBox.setFillColor(sf::Color::White);
                         ipAddressText.setFillColor(sf::Color::White);
+                        //connectButton.setFillColor(sf::Color::Black);
+                        //connectText.setFillColor(sf::Color::White);
                         drawInputText.setFillColor(sf::Color::Red);
                         secondLayer = true;
                     }
@@ -284,9 +318,14 @@ int main()
         mainWindow.clear();
 
         /* Render First Layer */
-        mainWindow.draw(title);
-        mainWindow.draw(playButton);
+        mainWindow.draw(chess);
+        mainWindow.draw(bg1);
+        mainWindow.draw(bg2);
+        mainWindow.draw(bg3);
+        mainWindow.draw(bg4);
         mainWindow.draw(quitButton);
+        mainWindow.draw(playButton);
+
         //mainWindow.draw(quitText);
 
         /* Render Second Layer */
