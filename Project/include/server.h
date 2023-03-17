@@ -4,7 +4,7 @@ sf::TcpSocket socket;
 
 void hostServer()
 {
-    std::cout << "your server ip : " << sf::IpAddress::getLocalAddress() << std::endl;
+    // std::cout << "your server ip : " << sf::IpAddress::getPublicAddress() << std::endl;
     char connectionType;
     std::string text = "Connected to: ";
 
