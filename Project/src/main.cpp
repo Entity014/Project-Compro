@@ -548,7 +548,7 @@ int main()
     }
     while (game.isOpen())
     {
-        std::cout << Pturn << " " << masterBoard.whoLose << " " << soundEndPlaying1 << " " << soundEndPlaying2 << std::endl;
+        // std::cout << Pturn << " " << masterBoard.whoLose << " " << soundEndPlaying1 << " " << soundEndPlaying2 << std::endl;
         // std::cout << deadStackBlack.size() << " " << deadStackWhite.size() << std::endl;
         // std::cout << " P1: " << musicPlaying1 << "P2: " << musicPlaying2 << "P3: " << musicPlaying3 << std::endl;
         // std::cout << masterBoard.isEnd << std::endl;
