@@ -548,7 +548,7 @@ int main()
     }
     while (game.isOpen())
     {
-        // std::cout << Pturn << " " << masterBoard.whoLose << " " << soundEndPlaying1 << " " << soundEndPlaying2 << std::endl;
+        std::cout << Pturn << " " << masterBoard.whoLose << " " << soundEndPlaying1 << " " << soundEndPlaying2 << std::endl;
         // std::cout << deadStackBlack.size() << " " << deadStackWhite.size() << std::endl;
         // std::cout << " P1: " << musicPlaying1 << "P2: " << musicPlaying2 << "P3: " << musicPlaying3 << std::endl;
         // std::cout << masterBoard.isEnd << std::endl;
@@ -581,10 +581,12 @@ int main()
                 if (Pturn == 0 && !soundEndPlaying1)
                 {
                     soundVector[2].play();
+                    soundEndPlaying1 = true;
                 }
                 else if (Pturn == 1 && !soundEndPlaying2)
                 {
                     soundVector[3].play();
+                    soundEndPlaying2 = true;
                 }
             }
             if (masterBoard.whoLose == 1)
